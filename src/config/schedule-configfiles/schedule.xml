@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="
+     http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+     http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+	<bean name="sayHelloJob" class="org.springframework.scheduling.quartz.JobDetailBean">
+		<property name="jobClass" value="com.xhsoft.framework.schedule.SayHelloJob" />
+		<property name="jobDataAsMap">
+			<map>
+				<entry key="user" value="admin" />
+			</map>
+		</property>
+	</bean>
+
+	<!-- 要调用的工作类 -->
+	<bean id="sayHelloMethodJob" class="com.xhsoft.framework.schedule.SayHelloMethodJob"></bean>
+	<!-- 定义调用对象和调用对象的方法 -->
+	<bean id="sayHelloMethodTask" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<!-- 调用的类 -->
+		<property name="targetObject">
+			<ref bean="sayHelloMethodJob" />
+		</property>
+		<!-- 调用类中的方法 -->
+		<property name="targetMethod">
+			<value>sayHello</value>
+		</property>
+	</bean>
+	<!-- 定义触发时间 -->
+	<bean id="sayHelloMethodtrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail">
+		    <list>
+		        <ref bean="sayHelloJob" />
+				<ref bean="sayHelloMethodTask" />
+		    </list>
+		</property>
+		<!-- cron表达式 -->
+		<property name="cronExpression">
+			<value>0/30 * * * * ?</value>
+		</property>
+	</bean>
+
+</beans>
