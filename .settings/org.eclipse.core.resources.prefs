@@ -1,0 +1,7 @@
+eclipse.preferences.version=1
+encoding//src/com/xhsoft/framework/common/cache/CacheMethodAfterAdvice.java=UTF-8
+encoding//src/com/xhsoft/framework/common/cache/CacheMethodInterceptor.java=UTF-8
+encoding//src/com/xhsoft/framework/common/cache/ViewCacheControler.java=UTF-8
+encoding//src/com/xhsoft/framework/common/cache/util/MemCachedUtil.java=UTF-8
+encoding//src/com/xhsoft/framework/common/utils/ContextUtil.java=UTF-8
+encoding//src/com/xhsoft/framework/common/utils/ContextUtilImpl.java=UTF-8

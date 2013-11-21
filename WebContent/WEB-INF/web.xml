@@ -26,7 +26,8 @@
         <param-value>
             classpath:applicationContext.xml,
             classpath:applicationContext-*.xml,
-            classpath:spring-configfiles/*.xml
+            classpath:spring-configfiles/*.xml,
+            classpath:schedule-configfiles/*.xml
         </param-value>
     </context-param>
     

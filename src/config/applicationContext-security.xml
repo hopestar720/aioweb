@@ -26,21 +26,21 @@
 	<!-- 引用外部固定账号配置文件-->
 	<!--
 		<security:user-service id="userDetailsService"
-		properties="classpath:properties/users.properties" />
+		properties="classpath:users.properties" />
 	-->
 
 	<!-- 自定义UserDetailsService认证  -->
-	<bean id="userDetailsService" class="com.shadow.security.service.UserDetailsServiceImpl">
+	<bean id="userDetailsService" class="com.xhsoft.framework.security.service.UserDetailsServiceImpl">
 		<property name="userService" ref="userService" />
 		<property name="roleService" ref="roleService" />
 	</bean>
 
 	<!-- 自定义资源权限关系认证 -->
-	<bean id="accessDecisionManager" class="com.shadow.security.service.AccessDecisionManagerImpl" />
+	<bean id="accessDecisionManager" class="com.xhsoft.framework.security.service.AccessDecisionManagerImpl" />
 
 	<!-- 自定义资源权限关系集合 -->
 	<bean id="securityMetadataSource"
-		class="com.shadow.security.service.SecurityMetadataSourceExtendImpl">
+		class="com.xhsoft.framework.security.service.SecurityMetadataSourceExtendImpl">
 		<property name="matcher" value="ant" />
 	</bean>
 
@@ -66,7 +66,7 @@
 
 	<!-- 登录认证过滤器-->
 	<bean id="usernamePasswordAuthenticationFilter"
-		class="com.shadow.security.service.UsernamePasswordAuthenticationExtendFilter">
+		class="com.xhsoft.framework.security.service.UsernamePasswordAuthenticationExtendFilter">
 		<property name="authenticationManager" ref="authenticationManager" />
 		<property name="sessionAuthenticationStrategy" ref="concurrentSessionControlStrategy" />
 		<property name="usernameParameter" value="username" />
@@ -82,7 +82,7 @@
 			</bean>
 		</property>
 		<property name="authenticationFailureHandler">
-			<bean class="com.shadow.security.handler.LoginFailureHandler" />
+			<bean class="com.xhsoft.framework.security.handler.LoginFailureHandler" />
 		</property>
 	</bean>
 
