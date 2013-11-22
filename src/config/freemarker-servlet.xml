@@ -20,7 +20,7 @@
 
 		<!--property name="freemarkerSettings" ref="freemarkerConfiguration"/ -->
 		<property name="templateLoaderPath">
-			<value>/WEB-INF/ftl/</value>
+			<value>/WEB-INF/template/</value>
 		</property>
 		
 		<property name="freemarkerVariables">

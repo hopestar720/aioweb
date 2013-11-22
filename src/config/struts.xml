@@ -41,7 +41,7 @@
 	-->
 
 	<!-- 全局配置 -->
-	<package name="mes-default" namespace="/" extends="struts-default,json-default">
+	<package name="aio-default"  extends="struts-default,json-default" abstract="true">
 		<!-- 过滤链 -->
 		<interceptors>
 			<interceptor name="security" class="security" />
@@ -64,9 +64,6 @@
 			</result>
 		</global-results>
 
-		<action name="test" class="userAction" method="test">
-			<interceptor-ref name="baseStack" />
-		</action>
 	</package>
 	
 	<!-- 引入模块配置-->

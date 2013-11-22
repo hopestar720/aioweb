@@ -10,6 +10,7 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.logging.Log;
@@ -24,51 +25,51 @@ import org.springframework.security.web.util.RegexRequestMatcher;
 import org.springframework.security.web.util.RequestMatcher;
 
 import com.xhsoft.framework.security.model.UserDetails;
-import com.xhsoft.framework.uam.entity.Resource;
+import com.xhsoft.framework.uam.entity.Res;
 import com.xhsoft.framework.uam.entity.Role;
-import com.xhsoft.framework.uam.service.ResourceService;
-import com.xhsoft.framework.uam.service.RoleService;
-
+import com.xhsoft.framework.uam.service.IResService;
+import com.xhsoft.framework.uam.service.IRoleService;
 
 public class SecurityMetadataSourceExtendImpl implements SecurityMetadataSourceExtend {
-	
+
+	//æ—¥å¿—
 	private static final Log logger = LogFactory.getLog(SecurityMetadataSourceExtendImpl.class);
 
-	private RoleService roleService; // ½ÇÉ«·şÎñÀà
+	private IRoleService roleService; // è§’è‰²æœåŠ¡ç±»
 
-	private ResourceService resourceService; // ×ÊÔ´·şÎñÀà
+	private IResService resService; // èµ„æºæœåŠ¡ç±»
 
-	private RequestMatcher requestMatcher; // Æ¥Åä¹æÔò
+	private RequestMatcher requestMatcher; // åŒ¹é…è§„åˆ™
 
-	private String matcher; // ¹æÔò±êÊ¶
+	private String matcher; // è§„åˆ™æ ‡è¯†
 
-	private SessionRegistry sessionRegistry; // session¿â´æ
+	private SessionRegistry sessionRegistry; // sessionåº“å­˜
 
-	private static Map<String, Collection<ConfigAttribute>> kv = new ConcurrentHashMap<String, Collection<ConfigAttribute>>(); // ×ÊÔ´¼¯ºÏ
+	private static Map<String, Collection<ConfigAttribute>> kv = new ConcurrentHashMap<String, Collection<ConfigAttribute>>(); // èµ„æºé›†åˆ
 
-	public RoleService getRoleService() {
+	public IRoleService getRoleService() {
 		return roleService;
 	}
 
-	@javax.annotation.Resource(name = "roleService")
-	public void setRoleService(RoleService roleService) {
+	@Resource(name = "roleService")
+	public void setRoleService(IRoleService roleService) {
 		this.roleService = roleService;
 	}
 
-	public ResourceService getResourceService() {
-		return resourceService;
+	public IResService getResService() {
+		return resService;
 	}
 
-	@javax.annotation.Resource(name = "resourceService")
-	public void setResourceService(ResourceService resourceService) {
-		this.resourceService = resourceService;
+	@Resource(name = "resService")
+	public void setResService(IResService resService) {
+		this.resService = resService;
 	}
 
 	public SessionRegistry getSessionRegistry() {
 		return sessionRegistry;
 	}
 
-	@javax.annotation.Resource(name = "sessionRegistry")
+	@Resource(name = "sessionRegistry")
 	public void setSessionRegistry(SessionRegistry sessionRegistry) {
 		this.sessionRegistry = sessionRegistry;
 	}
@@ -77,7 +78,7 @@ public class SecurityMetadataSourceExtendImpl implements SecurityMetadataSourceE
 		return true;
 	}
 
-	// ³õÊ¼»¯·½·¨Ê±ºò´ÓÊı¾İ¿âÖĞ¶ÁÈ¡×ÊÔ´
+	// åˆå§‹åŒ–æ–¹æ³•æ—¶å€™ä»æ•°æ®åº“ä¸­è¯»å–èµ„æº
 	@PostConstruct
 	public void init() {
 		load();
@@ -96,11 +97,11 @@ public class SecurityMetadataSourceExtendImpl implements SecurityMetadataSourceE
 			throws IllegalArgumentException {
 		HttpServletRequest request = ((FilterInvocation) object).getRequest();
 
-		// DEBUGÄ£Ê½ÏÔÊ¾ÇëÇó×ÊÔ´Â·¾¶
+		// DEBUGæ¨¡å¼æ˜¾ç¤ºè¯·æ±‚èµ„æºè·¯å¾„
 		if (logger.isDebugEnabled())
-			logger.debug("µ±Ç°ÇëÇóURL: " + request.getRequestURI());
+			logger.debug("å½“å‰è¯·æ±‚URL: " + request.getRequestURI());
 
-		// ¼ì²âÇëÇóÓëµ±Ç°×ÊÔ´Æ¥ÅäµÄÕıÈ·ĞÔ
+		// æ£€æµ‹è¯·æ±‚ä¸å½“å‰èµ„æºåŒ¹é…çš„æ­£ç¡®æ€§
 		Iterator<String> iterator = kv.keySet().iterator();
 		while (iterator.hasNext()) {
 			String uri = iterator.next();
@@ -108,8 +109,8 @@ public class SecurityMetadataSourceExtendImpl implements SecurityMetadataSourceE
 				requestMatcher = new AntPathRequestMatcher(uri);
 			}
 			if (matcher.toLowerCase().equals("regex")) {
-				requestMatcher = new RegexRequestMatcher(uri, request
-						.getMethod(), true);
+				requestMatcher = new RegexRequestMatcher(uri,
+						request.getMethod(), true);
 			}
 			if (requestMatcher.matches(request))
 				return kv.get(uri);
@@ -118,19 +119,19 @@ public class SecurityMetadataSourceExtendImpl implements SecurityMetadataSourceE
 	}
 
 	/**
-	 * ¼ÓÔØËùÓĞ×ÊÔ´ÓëÈ¨ÏŞµÄ¹ØÏµ
+	 * åŠ è½½æ‰€æœ‰èµ„æºä¸æƒé™çš„å…³ç³»
 	 */
 	@SuppressWarnings("unchecked")
 	public void load() {
-		List<Resource> resources = this.getResourceService().findAllResources(null);
-		for (Resource resource : resources) {
-			//if (resource.getMold().equals("1"))
-				kv.put(resource.getUri(), list2Collection(resource.getRoles()));
+		List<Res> ress = this.resService.findAll();
+		for (Res res : ress) {
+			//if (res.getMold().equals("1"))
+				kv.put(res.getUri(), list2Collection(res.getRoles()));
 		}
 	}
 
 	/**
-	 * ½«List<Role>¼¯ºÏ×ª»»Îª¿ò¼ÜĞèÒªµÄCollection<ConfigAttribute>¼¯ºÏ
+	 * å°†List<Role>é›†åˆè½¬æ¢ä¸ºæ¡†æ¶éœ€è¦çš„Collection<ConfigAttribute>é›†åˆ
 	 * 
 	 * @param roles
 	 * @return Collection<ConfigAttribute>
@@ -152,16 +153,16 @@ public class SecurityMetadataSourceExtendImpl implements SecurityMetadataSourceE
 		shotOff();
 	}
 
-	/** °ÑÈ«²¿ÓÃ»§Ìß³öÏµÍ³,±ØĞëÖØĞÂµÇÂ¼ */
+	/** æŠŠå…¨éƒ¨ç”¨æˆ·è¸¢å‡ºç³»ç»Ÿ,å¿…é¡»é‡æ–°ç™»å½• */
 	private void shotOff() {
 		List<Object> users = sessionRegistry.getAllPrincipals();
 		if (logger.isDebugEnabled())
-			logger.debug("µ±Ç°ÓÃ»§Êı: " + users.size());
-		// ±éÀúËùÓĞÓÃ»§
+			logger.debug("å½“å‰ç”¨æˆ·æ•°: " + users.size());
+		// éå†æ‰€æœ‰ç”¨æˆ·
 		for (Object o : users) {
 			if (logger.isDebugEnabled()) {
 				UserDetails user = (UserDetails) o;
-				logger.debug("µ±Ç°ÓÃ»§Ãû: " + user.getUsername());
+				logger.debug("å½“å‰ç”¨æˆ·å: " + user.getUsername());
 			}
 			for (SessionInformation information : sessionRegistry
 					.getAllSessions(o, false)) {

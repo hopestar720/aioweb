@@ -19,43 +19,111 @@
 				<value>classpath:jdbc.properties</value>
 				<!-- 缓存服务器配置文件 -->
 				<value>classpath:memcached.properties</value>
+				<!-- 邮件服务器配置文件 -->
+				<value>classpath:stmp.properties</value>
 			</list>
-
 		</property>
 	</bean>
 	
-	<!-- transaction manager, use JtaTransactionManager for global tx -->
-	<bean id="txManager"
-		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-		<property name="dataSource" ref="dynamicDataSource" />
+	<!-- i18n Resourcebundles -->
+	<bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+		<property name="basenames">
+			<list>
+				<value>globalMessages_zh_CN</value>
+			</list>
+		</property>
+	</bean>
+	
+	<!-- 导入Datasource配置 -->
+	<import resource="dataSource.xml" />
+	
+	
+	
+	<!-- Hibernate Configuration -->
+	<bean id="mySessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<property name="dataSource">
+			<ref bean="dataSource"/>
+		</property>
+		
+		<property name="mappingDirectoryLocations">
+			<list>
+				<value>classpath:hbm-configfiles/</value>
+			</list>
+		</property>
+		
+		<property name="hibernateProperties">
+			<props>
+				<!--<prop key="hibernate.dialect">org.hibernate.dialect.MySQL5InnoDBDialect</prop>-->
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+			 	<!--
+				<prop key="hibernate.cache.provider_class">net.sf.ehcache.hibernate.EhCacheProvider</prop>
+				<prop key="hibernate.cache.use_second_level_cache">true</prop>
+				<prop key="hibernate.cache.use_query_cache">true</prop>
+				
+				<prop key="hibernate.cache.use_query_cache">true</prop>
+				<prop key="hibernate.cache.region_prefix">quality.cache.ehcache</prop>
+				<prop key="hibernate.cache.use_second_level_cache">true</prop>
+				<prop key="hibernate.cache.use_structured_entries">true</prop>
+				<prop key="hibernate.cache.use_query_cache">true</prop>
+				<prop key="hibernate.cache.provider_class">com.googlecode.hibernate.memcached.MemcachedCacheProvider</prop>
+				<prop key="hibernate.memcached.servers">localhost:11211</prop>
+				-->
+				<prop key="hibernate.hbm2ddl.auto">update</prop>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.jdbc.fetch_size">100</prop>
+				<prop key="hibernate.jdbc.batch_size">50</prop>
+				<prop key="hibernate.cache.provider_class">org.hibernate.cache.NoCacheProvider</prop>
+				<prop key="hibernate.cache.use_second_level_cache">false</prop>
+				<prop key="hibernate.cache.use_query_cache">false</prop>
+				<prop key="hibernate.cache.use_minimal_puts">false</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<bean id="hibernateTemplate" class="org.springframework.orm.hibernate3.HibernateTemplate">
+		<property name="sessionFactory">
+			<ref bean="mySessionFactory"/>
+		</property>
+	</bean>
+	
+	<bean id="baseDao" class="com.xhsoft.framework.base.dao.impl.HibernateGenericDaoImpl">
+		<property name="hibernateTemplate">
+			<ref bean="hibernateTemplate"/>
+		</property>
 	</bean>
 
-	<!-- enable transaction demarcation with annotations -->
-	<tx:annotation-driven transaction-manager="txManager" />
+	<bean id="txManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory">
+			<ref bean="mySessionFactory" />
+		</property>
+	</bean>
 
-	<!-- 配置传播特性 -->
-	<tx:advice id="txAdvice" transaction-manager="txManager">
-		<tx:attributes>
-			<tx:method name="save*" propagation="REQUIRED" />
-			<tx:method name="delete*" propagation="REQUIRED" />
-			<tx:method name="modify*" propagation="REQUIRED" />
-			<tx:method name="insert*" propagation="REQUIRED" />
-			<tx:method name="remove*" propagation="REQUIRED" />
-			<tx:method name="update*" propagation="REQUIRED" />
-			<tx:method name="find*" propagation="REQUIRED" read-only="true" />
-			<tx:method name="list*" propagation="REQUIRED" read-only="true" />
-			<tx:method name="get*" propagation="REQUIRED" read-only="true" />
-			<tx:method name="load*" propagation="REQUIRED" read-only="true" />
-			<tx:method name="check*" propagation="REQUIRED" read-only="true" />
-			<tx:method name="*" />
-		</tx:attributes>
-	</tx:advice>
-
-	<!-- 配置事务过滤 -->
-	<aop:config>
-		<aop:pointcut id="methodPointcut"
-			expression="execution(* com.shadow.mvc.*.*.service.*Service.*(..))" />
-		<aop:advisor pointcut-ref="methodPointcut" advice-ref="txAdvice" />
-	</aop:config>
-
+	<bean id="baseTxService" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean" abstract="true">
+		<property name="transactionManager">
+			<ref bean="txManager" />
+		</property>
+		<property name="proxyTargetClass">
+			<value>true</value>
+		</property>
+		<property name="transactionAttributes">
+			<props>
+				<prop key="get*">PROPAGATION_REQUIRED,readOnly</prop>
+				<prop key="list*">PROPAGATION_REQUIRED,readOnly</prop>
+				<prop key="load*">PROPAGATION_REQUIRED,readOnly</prop>
+				<prop key="find*">PROPAGATION_REQUIRED,readOnly</prop>
+				<prop key="check*">PROPAGATION_REQUIRED,readOnly</prop>
+				<prop key="validate*">PROPAGATION_REQUIRED,readOnly</prop>
+				<prop key="add*">PROPAGATION_REQUIRED</prop>
+				<prop key="insert*">PROPAGATION_REQUIRED</prop>
+				<prop key="save*">PROPAGATION_REQUIRED</prop>
+				<prop key="delete*">PROPAGATION_REQUIRED</prop>
+				<prop key="remove*">PROPAGATION_REQUIRED</prop>
+				<prop key="modify*">PROPAGATION_REQUIRED</prop>
+				<prop key="update*">PROPAGATION_REQUIRED</prop>
+				<prop key="process*">PROPAGATION_REQUIRED</prop>
+				<prop key="create*">PROPAGATION_REQUIRED</prop>
+				<prop key="upload">PROPAGATION_REQUIRED</prop>
+			</props>
+		</property>
+	</bean>
 </beans>

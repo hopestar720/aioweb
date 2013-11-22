@@ -6,17 +6,17 @@ import com.xhsoft.framework.base.entity.AbstractEntity;
 
 public class Role extends AbstractEntity {
 	
-	private String name; // ½ÇÉ«Ãû³Æ
-	private String remark; // ÃèÊöÐÅÏ¢
-	private Integer status; // ×´Ì¬ 1.Õý³£ 2.¶³½á 3.É¾³ý 4.Òì³£
+	private String name; // ï¿½ï¿½É«ï¿½ï¿½ï¿½
+	private String remark; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
+	private Integer status; // ×´Ì¬ 1.ï¿½ï¿½ 2.ï¿½ï¿½ï¿½ï¿½ 3.É¾ï¿½ï¿½ 4.ï¿½ì³£
 	
-	private List<Resource> resources; // ×ÊÔ´×ÔºÏ
+	private List<Res> resources; // ï¿½ï¿½Ô´ï¿½Ôºï¿½
 
-	public List<Resource> getResources() {
+	public List<Res> getResources() {
 		return resources;
 	}
 
-	public void setResources(List<Resource> resources) {
+	public void setResources(List<Res> resources) {
 		this.resources = resources;
 	}
 

@@ -1,54 +1,57 @@
 package com.xhsoft.framework.common.utils;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
- * ¹¤¾ß¼¯ºÏÖ§³ÖÀà
+ * å·¥å…·é›†åˆæ”¯æŒç±»
  * @author hopestar720@126.com
- * @since 2013Äê11ÔÂ21ÈÕ
+ * @since 2013å¹´11æœˆ22æ—¥
  */
 public class Utils {
 
-	/** CONTEXT¹¤¾ßÀà */
+	/** CONTEXTå·¥å…·ç±» */
 	public static ContextUtil ContextUtil = new ContextUtilImpl();
 
-	/** »ù±¾¹¤¾ßÀà */
-	//public static CommonUtil CommonUtil = new CommonUtilImpl();
+	/** åŸºæœ¬å·¥å…·ç±» */
+	public static CommonUtil CommonUtil = new CommonUtilImpl();
 
-	/** Ö÷¼ü·Ö¸î¹¤¾ß */
+	/** ä¸»é”®åˆ†å‰²å·¥å…· */
 	//public static PKUtil PKUtil = new PKUtil();
 
-	/** SPRING¹¤¾ßÀà */
+	/** SPRINGå·¥å…·ç±» */
 	//public static SpringUtil SpringUtil = new SpringUtilImpl();
 
-	/** SECURITY¹¤¾ßÀà */
-	//public static SecurityUtil SecurityUtil = new SecurityUtil();
+	/** SECURITYå·¥å…·ç±» */
+	public static SecurityUtil SecurityUtil = new SecurityUtil();
 
-	/** ÉÏ´«¹¤¾ßÀà */
+	/** ä¸Šä¼ å·¥å…·ç±» */
 	//public static UploadUtil UploadUtil = new UploadUtilImpl();
 
-	/** ÎÄ¼ş¹¤¾ßÀà */
+	/** æ–‡ä»¶å·¥å…·ç±» */
 	//public static FileUtil FileUtil = new FileUtilImpl();
 
-	/** ¼ÓÃÜ¹¤¾ßÀà(Ä¬ÈÏÊ¹ÓÃSECURITYµÄMD5¼ÓÃÜ) */
+	/** åŠ å¯†å·¥å…·ç±»(é»˜è®¤ä½¿ç”¨SECURITYçš„MD5åŠ å¯†) */
 	//public static Encoder Encoder = new MD5Encoder();
 
-	/** Ğ£Ñé¹¤¾ßÀà */
+	/** æ ¡éªŒå·¥å…·ç±» */
 	//public static Validator Validator = new ValidatorImpl();
 
-	/** Ãô¸Ğ×Ö·ûÆ¥Åä¹¤¾ß */
+	/** æ•æ„Ÿå­—ç¬¦åŒ¹é…å·¥å…· */
 	//public static AcUtil AcUtil = new AcUtilImpl();
 
-	/** Æ´Òô×ª»»¹¤¾ß */
+	/** æ‹¼éŸ³è½¬æ¢å·¥å…· */
 	//public static PinYinUtil PinYinUtil = new PinYinUtilImpl();
 
-	/** ÓïÑÔ¹¤¾ß */
+	/** è¯­è¨€å·¥å…· */
 	//public static Language LanguageUtil = new LanguageUtil();
 
-	/** ¶àÓïÑÔ²ÎÊıÖµ */
+	/** å¤šè¯­è¨€å‚æ•°å€¼ */
 	//public static Map<String, Object> TextParams = new HashMap<String, Object>();
 
-	/** Êı¾İÔ´¹¤¾ßÀà */
+	/** æ•°æ®æºå·¥å…·ç±» */
 	//public static DataSourceUtil DataSourceUtil = new DataSourceUtil();
 
-	/** Í¼Æ¬¹¤¾ßÀà */
+	/** å›¾ç‰‡å·¥å…·ç±» */
 	//public static ImageUtil ImageUtil = new ImageUtil();
 }

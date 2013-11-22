@@ -5,13 +5,13 @@ import org.springframework.security.web.access.intercept.FilterInvocationSecurit
 public interface SecurityMetadataSourceExtend extends
 		FilterInvocationSecurityMetadataSource {
 	
-	/** ³õÊ¼»¯²Ù×÷ */
+	/** åˆå§‹åŒ–æ“ä½œ */
 	public void init();
 
-	/** ¼ÓÔØ×ÊÔ´ */
+	/** åŠ è½½èµ„æº */
 	public void load();
 
-	/** Ë¢ĞÂ×ÊÔ´ */
+	/** åˆ·æ–°èµ„æº */
 	public void expireNow();
 
 }

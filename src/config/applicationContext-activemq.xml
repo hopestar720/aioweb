@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+  xmlns="http://www.springframework.org/schema/beans"
+  xmlns:amq="http://activemq.apache.org/schema/core"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+  http://activemq.apache.org/schema/core http://activemq.apache.org/schema/core/activemq-core.xsd">
+	
+	<!-- 配置连接工厂ConnectionFactory-->
+	<bean id="jmsFactory" class="org.apache.activemq.pool.PooledConnectionFactory" destroy-method="stop">
+		<property name="connectionFactory">
+			<bean class="org.apache.activemq.ActiveMQConnectionFactory">
+				<property name="brokerURL">
+					<value>tcp://127.0.0.1:61616</value>
+				</property>
+			</bean>
+		</property>
+		<property name="maxConnections" value="100"/>
+	</bean>
+	
+	<!-- 配置Spring JMS　Template -->
+	<bean id="jmsTemplate" class="org.springframework.jms.core.JmsTemplate">
+		<property name="connectionFactory">
+			<ref bean="jmsFactory"/>
+		</property>
+		<property name="defaultDestinationName" value="subject"/>
+		<!-- P2P:False|订阅:True -->
+		<property name="pubSubDomain" value="true"/>
+	</bean>
+	
+	<!-- 发送消息目的地 -->
+	<bean id="destination" class="org.apache.activemq.command.ActiveMQTopic">
+		<!-- 设置消息队列的名字 -->
+		<constructor-arg index="0" value="subject"/>
+	</bean>
+	
+</beans>

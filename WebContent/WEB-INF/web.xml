@@ -53,6 +53,11 @@
 	<listener>
 		<listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>
 	</listener>
+	
+	<!-- 自定义监听  上下文 -->
+	<listener>
+		<listener-class>com.xhsoft.framework.common.listener.ApplicationContextListener</listener-class>	    
+	</listener>
 	<!-- Spring配置 end -->
 	
 	<!-- SpringSecurity配置 start -->
@@ -147,8 +152,56 @@
         <url-pattern>/messagebroker/*</url-pattern>
     </servlet-mapping>
 	<!-- flex 配置 end -->
+	
+	<!-- UrlRewriteFilter Configuration Area Start -->
+	<filter>
+		<filter-name>UrlRewriteFilter</filter-name>
+		<filter-class>org.tuckey.web.filters.urlrewrite.UrlRewriteFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>UrlRewriteFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>FORWARD</dispatcher>
+	</filter-mapping>
+	<!-- UrlRewriteFilter Configuration Area Start -->
+
+	<!-- FineReport Configuration Area Start -->
+	<servlet>
+		<servlet-name>ReportServer</servlet-name>
+		<servlet-class>com.fr.fs.web.FSServlet</servlet-class>
+		<load-on-startup>0</load-on-startup>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>ReportServer</servlet-name>
+		<url-pattern>/ReportServer</url-pattern>
+	</servlet-mapping>
+	<!-- FineReport Configuration Area End -->
+	
+	<!-- EHCache Page Filter Start-->
+	<!-- 缓存、gzip压缩核心过滤器 -->
+	<filter>
+	    <filter-name>PageEhCacheFilter</filter-name>
+	    <filter-class>com.hoo.ehcache.filter.PageEhCacheFilter</filter-class>
+	    <init-param>
+	        <param-name>patterns</param-name>
+	        <!-- 配置你需要缓存的url -->
+	        <param-value>/cache.jsp, product.action, market.action </param-value>
+	    </init-param>
+	</filter>
+	
+	<filter-mapping>
+	    <filter-name>PageEhCacheFilter</filter-name>
+	    <url-pattern>*.action</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+	    <filter-name>PageEhCacheFilter</filter-name>
+	    <url-pattern>*.jsp</url-pattern>
+	</filter-mapping>
+	<!-- EHCache Page Filter End-->
 
 	<welcome-file-list>
-		<welcome-file>index.jsp</welcome-file>
+		<welcome-file>/WEB-INF/content/index.jsp</welcome-file>
 	</welcome-file-list>
 </web-app>

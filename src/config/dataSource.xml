@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd">
+	
+	<description>datasource</description>
+	
+	<bean id="dbProperties" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="location" value="classpath:jdbc.properties" />
+		<property name="ignoreUnresolvablePlaceholders" value="true" />
+	</bean>
+
+	<!-- DBCP Datasource -->
+	<bean id="dbcpDs" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<property name="driverClassName" value="${jdbc.db1.driverClassName}" />
+		<property name="url" value="${jdbc.db1.url}" />
+		<property name="username" value="${jdbc.db1.username}" />
+		<property name="password" value="${jdbc.db1.password}" />
+		<property name="defaultAutoCommit" value="false" />
+	</bean>
+
+	<!-- C3P0 Datasource -->
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+		<property name="driverClass" value="${jdbc.db1.driverClassName}"/>
+		<property name="jdbcUrl" value="${jdbc.db1.url}"/>
+		<property name="user" value="${jdbc.db1.username}"/>
+		<property name="password" value="${jdbc.db1.password}"/>
+		<property name="acquireIncrement" value="5"/>
+		<property name="idleConnectionTestPeriod" value="3000"/>
+		<property name="checkoutTimeout" value="3000"/>
+		<property name="maxPoolSize" value="80"/>
+		<property name="minPoolSize" value="1"/>
+		<property name="maxStatements" value="6000"/>
+		<property name="initialPoolSize" value="5"/>
+	</bean>
+	
+	<!-- Proxool Datasource (V0.9.1) -->
+	<bean id="proxoolDs" class="org.logicalcobwebs.proxool.ProxoolDataSource">
+		<property name="driver" value="${jdbc.db1.driverClassName}"/>
+		<property name="driverUrl" value="${jdbc.db1.url}"/>
+		<property name="user" value="${jdbc.db1.username}"/>
+		<property name="password" value="${jdbc.db1.password}"/>
+		<property name="alias" value="proxool.p1"/>
+		<property name="maximumActiveTime" value="300000"/>
+		<property name="prototypeCount" value="10"/>
+		<property name="maximumConnectionCount" value="100"/>
+		<property name="minimumConnectionCount" value="10"/>
+		<property name="simultaneousBuildThrottle" value="50"/>
+    	<property name="houseKeepingTestSql" value="select CURRENT_DATE"/>
+		<property name="trace" value="true"/>
+		<property name="verbose" value="true"/>
+	</bean>
+	
+	<bean id="jdbcDs" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="${jdbc.db1.driverClassName}"/>
+		<property name="url" value="${jdbc.db1.url}"/>
+		<property name="username" value="${jdbc.db1.username}"/>
+		<property name="password" value="${jdbc.db1.password}"/>
+	</bean>
+</beans>

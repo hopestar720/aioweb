@@ -1,0 +1,2 @@
+var MSG_CONS_PRE_SUCCESS = "";
+var MSG_CONS_PRE_FAILURE = "";

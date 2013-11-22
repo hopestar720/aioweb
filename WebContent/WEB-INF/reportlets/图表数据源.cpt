@@ -1,0 +1,356 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WorkBook xmlVersion="20120203" releaseVersion="7.0.0">
+<TableDataMap>
+<TableData name="ds1" class="com.fr.data.impl.DBTableData">
+<Parameters/>
+<Attributes maxMemRowCount="-1"/>
+<Connection class="com.fr.data.impl.NameDatabaseConnection">
+<DatabaseName>
+<![CDATA[FRDemo]]></DatabaseName>
+</Connection>
+<Query>
+<![CDATA[SELECT * FROM [SALES_BASIC]A]]></Query>
+</TableData>
+<TableData name="ds2" class="com.fr.data.impl.DBTableData">
+<Parameters/>
+<Attributes maxMemRowCount="-1"/>
+<Connection class="com.fr.data.impl.NameDatabaseConnection">
+<DatabaseName>
+<![CDATA[FRDemo]]></DatabaseName>
+</Connection>
+<Query>
+<![CDATA[SELECT * FROM [abc]A]]></Query>
+</TableData>
+</TableDataMap>
+<ReportWebAttr>
+<WebWriteContent>
+<ToolBars>
+<ToolBarManager>
+<Location>
+<Embed position="1"/>
+</Location>
+<ToolBar>
+<Widget class="com.fr.report.web.ui.impl.write.Submit">
+<WidgetAttr/>
+<Text>
+<![CDATA[${i18n('Utils-Submit')}]]></Text>
+<IconName>
+<![CDATA[submit]]></IconName>
+<Verify failVerifySubmit="false"/>
+</Widget>
+<Widget class="com.fr.report.web.ui.impl.write.Verify">
+<WidgetAttr/>
+<Text>
+<![CDATA[${i18n('Verify-Data_Verify')}]]></Text>
+<IconName>
+<![CDATA[verify]]></IconName>
+</Widget>
+<Widget class="com.fr.report.web.ui.impl.FlashPrint">
+<WidgetAttr/>
+<Text>
+<![CDATA[${i18n('Utils-Print[Client]A')}]]></Text>
+<IconName>
+<![CDATA[flashprint]]></IconName>
+</Widget>
+<Widget class="com.fr.report.web.ui.impl.Print">
+<WidgetAttr/>
+<Text>
+<![CDATA[${i18n('Print')}]]></Text>
+<IconName>
+<![CDATA[print]]></IconName>
+<PrintButtons/>
+</Widget>
+<Widget class="com.fr.report.web.ui.impl.Export">
+<WidgetAttr/>
+<Text>
+<![CDATA[${i18n('Export')}]]></Text>
+<IconName>
+<![CDATA[export]]></IconName>
+<Buttons pdf="true" excelP="true" excelO="true" excelS="true" word="true" image="true"/>
+</Widget>
+<Widget class="com.fr.report.web.ui.impl.Email">
+<WidgetAttr/>
+<Text>
+<![CDATA[${i18n('Email')}]]></Text>
+<IconName>
+<![CDATA[email]]></IconName>
+</Widget>
+<Widget class="com.fr.report.web.ui.impl.write.AppendColumnRow">
+<WidgetAttr/>
+<Text>
+<![CDATA[${i18n('Add')}${i18n('Record')}]]></Text>
+<IconName>
+<![CDATA[appendcolumn]]></IconName>
+</Widget>
+<Widget class="com.fr.report.web.ui.impl.write.ShowCellValue">
+<WidgetAttr/>
+<LabelAttr verticalcenter="true" textalign="0" autoline="false"/>
+<FRFont name="SimSun" style="0" size="72"/>
+<widgetValue/>
+</Widget>
+<Widget class="com.fr.report.web.ui.impl.write.ImportExcelData">
+<WidgetAttr/>
+<Text>
+<![CDATA[${i18n('Utils-Import_Excel_Data')}]]></Text>
+<IconName>
+<![CDATA[excel]]></IconName>
+</Widget>
+</ToolBar>
+</ToolBarManager>
+</ToolBars>
+<SelectedColor/>
+</WebWriteContent>
+</ReportWebAttr>
+<Report class="com.fr.report.WorkSheet" name="sheet1">
+<ReportPageAttr>
+<HR/>
+<FR/>
+<HC/>
+<FC/>
+</ReportPageAttr>
+<RowHeight defaultValue="723900">
+<![CDATA[723900,723900,723900,723900,723900,723900,723900,723900,723900,723900,723900]]></RowHeight>
+<ColumnWidth defaultValue="2743200">
+<![CDATA[2743200,2743200,2743200,2743200,2743200,2743200,2743200,2743200,2743200,2743200,2743200]]></ColumnWidth>
+<CellElementList>
+<C c="0" r="0">
+<O t="I">
+<![CDATA[3]]></O>
+<CellGUIAttr/>
+<CellPageAttr/>
+<Expand/>
+</C>
+<C c="1" r="0">
+<O t="I">
+<![CDATA[4]]></O>
+<Expand/>
+</C>
+<C c="2" r="0">
+<O t="I">
+<![CDATA[5]]></O>
+<Expand/>
+</C>
+<C c="3" r="0">
+<O t="I">
+<![CDATA[6]]></O>
+<Expand/>
+</C>
+<C c="0" r="1">
+<O t="I">
+<![CDATA[2]]></O>
+<Expand/>
+</C>
+<C c="1" r="1">
+<O t="I">
+<![CDATA[6]]></O>
+<Expand/>
+</C>
+<C c="2" r="1">
+<O t="I">
+<![CDATA[7]]></O>
+<Expand/>
+</C>
+<C c="3" r="1">
+<O t="I">
+<![CDATA[8]]></O>
+<Expand/>
+</C>
+<C c="0" r="3" cs="5" rs="7">
+<O t="CC">
+<LayoutAttr selectedIndex="0"/>
+<Chart name="Default">
+<Chart class="com.fr.chart.Chart">
+<GI>
+<AttrBackground>
+<Background name="NullBackground"/>
+</AttrBackground>
+<AttrBorder>
+<Attr lineStyle="0" isRoundBorder="false"/>
+<newColor borderColor="-6908266"/>
+</AttrBorder>
+<AttrAlpha>
+<Attr alpha="1.0"/>
+</AttrAlpha>
+</GI>
+<ChartAttr isJSDraw="true"/>
+<Title>
+<GI>
+<AttrBackground>
+<Background name="NullBackground"/>
+</AttrBackground>
+<AttrBorder>
+<Attr lineStyle="0" isRoundBorder="false"/>
+<newColor borderColor="-6908266"/>
+</AttrBorder>
+<AttrAlpha>
+<Attr alpha="1.0"/>
+</AttrAlpha>
+</GI>
+<O>
+<![CDATA[新建图表标题]]></O>
+<TextAttr>
+<Attr alignText="0">
+<FRFont name="Microsoft YaHei" style="0" size="88"/>
+</Attr>
+</TextAttr>
+<TitleVisible value="true" position="0"/>
+</Title>
+<Plot class="com.fr.chart.plot.PiePlot">
+<Plot>
+<GI>
+<AttrBackground>
+<Background name="NullBackground"/>
+</AttrBackground>
+<AttrBorder>
+<Attr lineStyle="0" isRoundBorder="false"/>
+<newColor/>
+</AttrBorder>
+<AttrAlpha>
+<Attr alpha="1.0"/>
+</AttrAlpha>
+</GI>
+<Attr isNullValueBreak="true" isHighChart="false" interactiveBorder="true" interactiveHighlight="false" interactiveOuterlight="true" autoRefreshPerSecond="0"/>
+<newHotTooltipStyle>
+<AttrContents>
+<Attr showLine="false" position="1" seriesLabel="${SERIES}${BR}${CATEGORY}${BR}${VALUE}"/>
+<Format class="java.text.DecimalFormat">
+<![CDATA[#0.00]]></Format>
+<PercentFormat>
+<Format class="java.text.DecimalFormat">
+<![CDATA[#0.00%]]></Format>
+</PercentFormat>
+</AttrContents>
+</newHotTooltipStyle>
+<ConditionCollection>
+<DefaultAttr class="com.fr.chart.condition.ConditionAttr">
+<ConditionAttr name="">
+<AttrList>
+<Attr class="com.fr.chart.condition.AttrBorder">
+<AttrBorder>
+<Attr lineStyle="1" isRoundBorder="false"/>
+<newColor borderColor="-1"/>
+</AttrBorder>
+</Attr>
+</AttrList>
+</ConditionAttr>
+</DefaultAttr>
+</ConditionCollection>
+<Legend>
+<GI>
+<AttrBackground>
+<Background name="NullBackground"/>
+</AttrBackground>
+<AttrBorder>
+<Attr lineStyle="0" isRoundBorder="false"/>
+<newColor borderColor="-6908266"/>
+</AttrBorder>
+<AttrAlpha>
+<Attr alpha="1.0"/>
+</AttrAlpha>
+</GI>
+<Attr position="4" visible="true" autoAdjustSize="false"/>
+<FRFont name="Microsoft YaHei" style="0" size="72"/>
+</Legend>
+<DataSheet>
+<GI>
+<AttrBackground>
+<Background name="NullBackground"/>
+</AttrBackground>
+<AttrBorder>
+<Attr lineStyle="1" isRoundBorder="false"/>
+<newColor borderColor="-16777216"/>
+</AttrBorder>
+<AttrAlpha>
+<Attr alpha="1.0"/>
+</AttrAlpha>
+</GI>
+<Attr isVisible="false" isLegendVisible="true"/>
+</DataSheet>
+<OuterLight>
+<Attr outerSize="0" outerAlpha="0.0"/>
+</OuterLight>
+<Shadow>
+<Attr shadowSize="4" shadowAlpha="0.0"/>
+</Shadow>
+<PieAttr subType="1" smallPercent="0.05" startAngle="90" separate="0" isSeparateOut="true"/>
+</Plot>
+</Plot>
+</Chart>
+</Chart>
+<NormalReportDataDefinition>
+<Series>
+<SeriesDefinition>
+<SeriesName>
+<O t="Formula" class="Formula">
+<Attributes>
+<![CDATA[=A1:D1]]></Attributes>
+</O>
+</SeriesName>
+<SeriesValue>
+<O t="Formula" class="Formula">
+<Attributes>
+<![CDATA[=A2:D2]]></Attributes>
+</O>
+</SeriesValue>
+</SeriesDefinition>
+</Series>
+<Category>
+<O>
+<![CDATA[]]></O>
+</Category>
+<Top topCate="-1" topValue="-1" isDiscardOtherCate="false" isDiscardOtherSeries="false" isDiscardNullCate="false" isDiscardNullSeries="false"/>
+</NormalReportDataDefinition>
+</O>
+<CellGUIAttr/>
+<CellPageAttr/>
+<Expand/>
+</C>
+</CellElementList>
+<ReportAttrSet>
+<ReportSettings headerHeight="0" footerHeight="0">
+<PaperSetting/>
+</ReportSettings>
+<Header reportPageType="0">
+<Background name="NullBackground"/>
+<LeftList/>
+<CenterList/>
+<RightList/>
+</Header>
+<Footer reportPageType="0">
+<Background name="NullBackground"/>
+<LeftList/>
+<CenterList/>
+<RightList/>
+</Footer>
+</ReportAttrSet>
+<ReportWriteAttr>
+<VV>
+<O t="Formula" class="Formula">
+<Attributes>
+<![CDATA[=111 < 1]]></Attributes>
+</O>
+<Message>
+<![CDATA[aaaa]]></Message>
+</VV>
+</ReportWriteAttr>
+</Report>
+<Report class="com.fr.report.WorkSheet" name="sheet2">
+<ReportPageAttr>
+<HR/>
+<FR/>
+<HC/>
+<FC/>
+</ReportPageAttr>
+<RowHeight defaultValue="723900">
+<![CDATA[723900,723900,723900,723900,723900,723900,723900,723900,723900,723900,723900]]></RowHeight>
+<ColumnWidth defaultValue="2743200">
+<![CDATA[2743200,0,2743200,2743200,2743200,2743200,2743200,2743200,2743200,2743200,2743200]]></ColumnWidth>
+<CellElementList/>
+<ReportAttrSet>
+<ReportSettings headerHeight="0" footerHeight="0">
+<PaperSetting/>
+</ReportSettings>
+</ReportAttrSet>
+</Report>
+<StyleList/>
+</WorkBook>

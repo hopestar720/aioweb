@@ -1,13 +1,9 @@
 package com.xhsoft.framework.uam.service.impl;
 
-import com.xhsoft.framework.uam.service.RoleService;
+import com.xhsoft.framework.base.service.impl.BaseServiceImpl;
+import com.xhsoft.framework.uam.entity.Role;
+import com.xhsoft.framework.uam.service.IRoleService;
 
-public class RoleServiceImpl<Role> implements RoleService {
-
-	@Override
-	public com.xhsoft.framework.uam.entity.Role findById(
-			com.xhsoft.framework.uam.entity.Role role) {
-		return null;
-	}
+public class RoleServiceImpl extends BaseServiceImpl<Role> implements IRoleService {
 
 }

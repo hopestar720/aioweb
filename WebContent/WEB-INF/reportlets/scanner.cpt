@@ -1,0 +1,711 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WorkBook xmlVersion="20120203" releaseVersion="7.0.0">
+<TableDataMap>
+<TableData name="ds1" class="com.fr.data.impl.DBTableData">
+<Parameters>
+<Parameter>
+<Attributes name="time" isAutoInc="false"/>
+<O t="Date">
+<![CDATA[1353686400000]]></O>
+</Parameter>
+</Parameters>
+<Attributes maxMemRowCount="-1"/>
+<Connection class="com.fr.data.impl.NameDatabaseConnection">
+<DatabaseName>
+<![CDATA[DB]]></DatabaseName>
+</Connection>
+<Query>
+<![CDATA[select t.CELL_NAME  小区名,t.CELL_LAC  小区LAC,t.CELL_CI 小区CI,t.GKPI001  无线利用率,t.GKPI002  总话务量,t.GKPI018 切换成功率,t.GKPI040  每线话务量,t.GKPI042  TCH掉话率,t.GKPI053  "TCH拥塞率(含切换)" from agg_sts_hw_cell t where 1=1 and rownum <=10 and t.scan_start_time = to_date('${time}','yyyy-mm-dd hh24:mi:ss')]]></Query>
+</TableData>
+<TableData name="ds2" class="com.fr.data.impl.DBTableData">
+<Parameters>
+<Parameter>
+<Attributes name="name" isAutoInc="false"/>
+<O>
+<![CDATA[LAC]]></O>
+</Parameter>
+<Parameter>
+<Attributes name="value" isAutoInc="false"/>
+<O>
+<![CDATA[CELL_LAC]]></O>
+</Parameter>
+<Parameter>
+<Attributes name="date" isAutoInc="false"/>
+<O t="Date">
+<![CDATA[1353686400000]]></O>
+</Parameter>
+</Parameters>
+<Attributes maxMemRowCount="-1"/>
+<Connection class="com.fr.data.impl.NameDatabaseConnection">
+<DatabaseName>
+<![CDATA[DB]]></DatabaseName>
+</Connection>
+<Query>
+<![CDATA[select t.CELL_NAME  小区名,t.${value} as ${name} from agg_sts_hw_cell t where 1=1 and rownum <=10 and t.scan_start_time = to_date('${date}','yyyy-mm-dd hh24:mi:ss')]]></Query>
+</TableData>
+</TableDataMap>
+<ReportWebAttr/>
+<Report class="com.fr.report.WorkSheet" name="sheet1">
+<ReportPageAttr>
+<HR F="0" T="0"/>
+<FR/>
+<HC/>
+<FC/>
+</ReportPageAttr>
+<RowHeight defaultValue="723900">
+<![CDATA[723900,723900,723900,723900,723900,723900,723900,723900,723900,723900,723900]]></RowHeight>
+<ColumnWidth defaultValue="2743200">
+<![CDATA[2743200,2743200,2743200,2743200,2743200,2743200,2743200,2743200,2743200,2743200,2743200]]></ColumnWidth>
+<FloatElementList>
+<com.fr.report.FloatElement>
+<FloatElementName name="Float8"/>
+<Location leftDistance="38100" topDistance="10248900" width="24498300" height="10020300"/>
+<O t="CC">
+<LayoutAttr selectedIndex="0"/>
+<Chart name="Default">
+<Chart class="com.fr.chart.Chart">
+<GI>
+<AttrBackground>
+<Background name="NullBackground"/>
+</AttrBackground>
+<AttrBorder>
+<Attr lineStyle="1" isRoundBorder="false"/>
+<newColor/>
+</AttrBorder>
+<AttrAlpha>
+<Attr alpha="1.0"/>
+</AttrAlpha>
+</GI>
+<ChartAttr isJSDraw="true"/>
+<Title>
+<GI>
+<AttrBackground>
+<Background name="NullBackground"/>
+</AttrBackground>
+<AttrBorder>
+<Attr lineStyle="0" isRoundBorder="false"/>
+<newColor/>
+</AttrBorder>
+<AttrAlpha>
+<Attr alpha="1.0"/>
+</AttrAlpha>
+</GI>
+<O t="Formula" class="Formula">
+<Attributes>
+<![CDATA[="重点小区["+$name+"]A指标监控"]]></Attributes>
+</O>
+<TextAttr>
+<Attr alignText="0">
+<FRFont name="宋体" style="0" size="72"/>
+</Attr>
+</TextAttr>
+<TitleVisible value="true" position="0"/>
+</Title>
+<Plot class="com.fr.chart.plot.Bar2DPlot">
+<CategoryPlot>
+<GI>
+<AttrBackground>
+<Background name="NullBackground"/>
+</AttrBackground>
+<AttrBorder>
+<Attr lineStyle="0" isRoundBorder="false"/>
+<newColor/>
+</AttrBorder>
+<AttrAlpha>
+<Attr alpha="1.0"/>
+</AttrAlpha>
+</GI>
+<Attr isNullValueBreak="true" isHighChart="true" interactiveBorder="true" interactiveHighlight="false" interactiveOuterlight="true" autoRefreshPerSecond="30"/>
+<newHotTooltipStyle>
+<AttrContents>
+<Attr showLine="false" position="1" seriesLabel="${VALUE}"/>
+</AttrContents>
+</newHotTooltipStyle>
+<ConditionCollection>
+<DefaultAttr class="com.fr.chart.condition.ConditionAttr">
+<ConditionAttr name="">
+<AttrList>
+<Attr class="com.fr.chart.condition.AttrFillStyle">
+<AttrFillStyle>
+<Attr/>
+</AttrFillStyle>
+</Attr>
+<Attr class="com.fr.chart.condition.AttrBorder">
+<AttrBorder>
+<Attr lineStyle="1" isRoundBorder="false"/>
+<newColor borderColor="-1"/>
+</AttrBorder>
+</Attr>
+</AttrList>
+</ConditionAttr>
+</DefaultAttr>
+</ConditionCollection>
+<Legend>
+<GI>
+<AttrBackground>
+<Background name="NullBackground"/>
+</AttrBackground>
+<AttrBorder>
+<Attr lineStyle="1" isRoundBorder="true"/>
+<newColor borderColor="-8355712"/>
+</AttrBorder>
+<AttrAlpha>
+<Attr alpha="1.0"/>
+</AttrAlpha>
+</GI>
+<Attr position="4" visible="true" autoAdjustSize="false"/>
+<FRFont name="宋体" style="0" size="72"/>
+</Legend>
+<DataSheet>
+<GI>
+<AttrBackground>
+<Background name="NullBackground"/>
+</AttrBackground>
+<AttrBorder>
+<Attr lineStyle="1" isRoundBorder="false"/>
+<newColor borderColor="-16777216"/>
+</AttrBorder>
+<AttrAlpha>
+<Attr alpha="1.0"/>
+</AttrAlpha>
+</GI>
+<Attr isVisible="false" isLegendVisible="true"/>
+<FRFont name="SimSun" style="0" size="72"/>
+</DataSheet>
+<OuterLight>
+<Attr outerSize="14" outerAlpha="0.8" outerColor="-8355712"/>
+</OuterLight>
+<Shadow>
+<Attr shadowSize="5" shadowAlpha="0.6" shadowColor="-8355712"/>
+</Shadow>
+<RectanglePlotAttr interactiveAxisTooltip="false"/>
+<xAxis>
+<CategoryAxis class="com.fr.chart.plot.axis.CategoryAxis">
+<newAxisAttr isShowAxisLabel="false"/>
+<AxisLineStyle AxisStyle="1" MainGridStyle="0" SecondGridStyle="0"/>
+<newLineColor lineColor="-5197648"/>
+<AxisPosition value="3"/>
+<TickLine201106 type="2" secType="0"/>
+<ArrowShow arrowShow="false"/>
+<TextAttr>
+<Attr alignText="0">
+<FRFont name="宋体" style="0" size="72"/>
+</Attr>
+</TextAttr>
+<AxisLabelCount value="=0"/>
+<AxisRange/>
+<AxisUnit201106 isCustomMainUnit="false" isCustomSecUnit="false" mainUnit="=0" secUnit="=0"/>
+<ZoomAxisAttr isZoom="false"/>
+</CategoryAxis>
+</xAxis>
+<yAxis>
+<ValueAxis class="com.fr.chart.plot.axis.ValueAxis">
+<ValueAxisAttr201108 alignZeroValue="false"/>
+<newAxisAttr isShowAxisLabel="true"/>
+<AxisLineStyle AxisStyle="0" MainGridStyle="1" SecondGridStyle="0"/>
+<newLineColor mainGridColor="-1184275" lineColor="-5197648"/>
+<AxisPosition value="2"/>
+<TickLine201106 type="2" secType="0"/>
+<ArrowShow arrowShow="false"/>
+<TextAttr>
+<Attr alignText="0">
+<FRFont name="宋体" style="0" size="72"/>
+</Attr>
+</TextAttr>
+<AxisLabelCount value="=0"/>
+<AxisRange/>
+<AxisUnit201106 isCustomMainUnit="false" isCustomSecUnit="false" mainUnit="=0" secUnit="=0"/>
+<ZoomAxisAttr isZoom="false"/>
+</ValueAxis>
+</yAxis>
+<secondAxis>
+<ValueAxis class="com.fr.chart.plot.axis.ValueAxis">
+<ValueAxisAttr201108 alignZeroValue="false"/>
+<newAxisAttr isShowAxisLabel="true"/>
+<AxisLineStyle AxisStyle="1" MainGridStyle="1" SecondGridStyle="0"/>
+<newLineColor mainGridColor="-1184275" lineColor="-5197648"/>
+<AxisPosition value="4"/>
+<TickLine201106 type="2" secType="0"/>
+<ArrowShow arrowShow="false"/>
+<TextAttr>
+<Attr alignText="0"/>
+</TextAttr>
+<AxisLabelCount value="=0"/>
+<AxisRange/>
+<AxisUnit201106 isCustomMainUnit="false" isCustomSecUnit="false" mainUnit="=0" secUnit="=0"/>
+<ZoomAxisAttr isZoom="false"/>
+</ValueAxis>
+</secondAxis>
+<CateAttr isStacked="false"/>
+<BarAttr isHorizontal="false" overlap="1.0" interval="0.2"/>
+<Bar2DAttr isSimulation3D="true"/>
+</CategoryPlot>
+</Plot>
+</Chart>
+</Chart>
+<OneValueCDDefinition seriesName="小区名" valueName="LAC" function="com.fr.data.util.function.NoneFunction">
+<Top topCate="-1" topValue="-1" isDiscardOtherCate="false" isDiscardOtherSeries="false" isDiscardNullCate="false" isDiscardNullSeries="false"/>
+<TableData class="com.fr.data.impl.NameTableData">
+<Name>
+<![CDATA[ds2]]></Name>
+</TableData>
+<CategoryName value="小区名"/>
+</OneValueCDDefinition>
+</O>
+<Style index="0"/>
+</com.fr.report.FloatElement>
+</FloatElementList>
+<CellElementList>
+<C c="0" r="0" s="1">
+<O>
+<![CDATA[小区名]]></O>
+<CellGUIAttr/>
+<CellPageAttr/>
+<Expand/>
+</C>
+<C c="1" r="0" s="2">
+<O>
+<![CDATA[LAC]]></O>
+<NameJavaScriptGroup>
+<NameJavaScript name="图表超链-联动悬浮元素1">
+<JavaScript class="com.fr.web.ChartHyperRelateFloatLink">
+<JavaScript class="com.fr.web.ChartHyperRelateFloatLink">
+<Parameters>
+<Parameter>
+<Attributes name="value" isAutoInc="false"/>
+<O>
+<![CDATA[CELL_LAC]]></O>
+</Parameter>
+<Parameter>
+<Attributes name="name" isAutoInc="false"/>
+<O>
+<![CDATA[LAC]]></O>
+</Parameter>
+</Parameters>
+<TargetFrame>
+<![CDATA[_blank]]></TargetFrame>
+<Features width="500" height="270"/>
+<realateName realateValue="Float8"/>
+</JavaScript>
+</JavaScript>
+</NameJavaScript>
+</NameJavaScriptGroup>
+<CellGUIAttr/>
+<CellPageAttr/>
+<Expand/>
+</C>
+<C c="2" r="0" s="2">
+<O>
+<![CDATA[CI]]></O>
+<NameJavaScriptGroup>
+<NameJavaScript name="图表超链-联动悬浮元素1">
+<JavaScript class="com.fr.web.ChartHyperRelateFloatLink">
+<JavaScript class="com.fr.web.ChartHyperRelateFloatLink">
+<Parameters>
+<Parameter>
+<Attributes name="value" isAutoInc="false"/>
+<O>
+<![CDATA[CELL_CI]]></O>
+</Parameter>
+<Parameter>
+<Attributes name="name" isAutoInc="false"/>
+<O>
+<![CDATA[CI]]></O>
+</Parameter>
+</Parameters>
+<TargetFrame>
+<![CDATA[_blank]]></TargetFrame>
+<Features width="500" height="270"/>
+<realateName realateValue="Float8"/>
+</JavaScript>
+</JavaScript>
+</NameJavaScript>
+</NameJavaScriptGroup>
+<CellGUIAttr/>
+<CellPageAttr/>
+<Expand/>
+</C>
+<C c="3" r="0" s="2">
+<O>
+<![CDATA[无线利用率]]></O>
+<NameJavaScriptGroup>
+<NameJavaScript name="图表超链-联动悬浮元素1">
+<JavaScript class="com.fr.web.ChartHyperRelateFloatLink">
+<JavaScript class="com.fr.web.ChartHyperRelateFloatLink">
+<Parameters>
+<Parameter>
+<Attributes name="value" isAutoInc="false"/>
+<O>
+<![CDATA[GKPI001]]></O>
+</Parameter>
+<Parameter>
+<Attributes name="name" isAutoInc="false"/>
+<O>
+<![CDATA[无线利用率]]></O>
+</Parameter>
+</Parameters>
+<TargetFrame>
+<![CDATA[_blank]]></TargetFrame>
+<Features width="500" height="270"/>
+<realateName realateValue="Float8"/>
+</JavaScript>
+</JavaScript>
+</NameJavaScript>
+</NameJavaScriptGroup>
+<CellGUIAttr/>
+<CellPageAttr/>
+<Expand/>
+</C>
+<C c="4" r="0" s="2">
+<O>
+<![CDATA[总话务量]]></O>
+<NameJavaScriptGroup>
+<NameJavaScript name="图表超链-联动悬浮元素1">
+<JavaScript class="com.fr.web.ChartHyperRelateFloatLink">
+<JavaScript class="com.fr.web.ChartHyperRelateFloatLink">
+<Parameters>
+<Parameter>
+<Attributes name="value" isAutoInc="false"/>
+<O>
+<![CDATA[GKPI002]]></O>
+</Parameter>
+<Parameter>
+<Attributes name="name" isAutoInc="false"/>
+<O>
+<![CDATA[总话务量]]></O>
+</Parameter>
+</Parameters>
+<TargetFrame>
+<![CDATA[_blank]]></TargetFrame>
+<Features width="500" height="270"/>
+<realateName realateValue="Float8"/>
+</JavaScript>
+</JavaScript>
+</NameJavaScript>
+</NameJavaScriptGroup>
+<CellGUIAttr/>
+<CellPageAttr/>
+<Expand/>
+</C>
+<C c="5" r="0" s="2">
+<O>
+<![CDATA[切换成功率]]></O>
+<NameJavaScriptGroup>
+<NameJavaScript name="图表超链-联动悬浮元素1">
+<JavaScript class="com.fr.web.ChartHyperRelateFloatLink">
+<JavaScript class="com.fr.web.ChartHyperRelateFloatLink">
+<Parameters>
+<Parameter>
+<Attributes name="value" isAutoInc="false"/>
+<O>
+<![CDATA[]]></O>
+</Parameter>
+<Parameter>
+<Attributes name="name" isAutoInc="false"/>
+<O>
+<![CDATA[切换成功率]]></O>
+</Parameter>
+</Parameters>
+<TargetFrame>
+<![CDATA[_blank]]></TargetFrame>
+<Features width="500" height="270"/>
+<realateName realateValue="Float8"/>
+</JavaScript>
+</JavaScript>
+</NameJavaScript>
+</NameJavaScriptGroup>
+<CellGUIAttr/>
+<CellPageAttr/>
+<Expand/>
+</C>
+<C c="6" r="0" s="2">
+<O>
+<![CDATA[每线话务量]]></O>
+<NameJavaScriptGroup>
+<NameJavaScript name="图表超链-联动悬浮元素1">
+<JavaScript class="com.fr.web.ChartHyperRelateFloatLink">
+<JavaScript class="com.fr.web.ChartHyperRelateFloatLink">
+<Parameters>
+<Parameter>
+<Attributes name="value" isAutoInc="false"/>
+<O>
+<![CDATA[]]></O>
+</Parameter>
+<Parameter>
+<Attributes name="name" isAutoInc="false"/>
+<O>
+<![CDATA[每线话务量]]></O>
+</Parameter>
+</Parameters>
+<TargetFrame>
+<![CDATA[_blank]]></TargetFrame>
+<Features width="500" height="270"/>
+<realateName realateValue="Float8"/>
+</JavaScript>
+</JavaScript>
+</NameJavaScript>
+</NameJavaScriptGroup>
+<CellGUIAttr/>
+<CellPageAttr/>
+<Expand/>
+</C>
+<C c="7" r="0" s="2">
+<O>
+<![CDATA[TCH掉话率]]></O>
+<NameJavaScriptGroup>
+<NameJavaScript name="图表超链-联动悬浮元素1">
+<JavaScript class="com.fr.web.ChartHyperRelateFloatLink">
+<JavaScript class="com.fr.web.ChartHyperRelateFloatLink">
+<Parameters>
+<Parameter>
+<Attributes name="name" isAutoInc="false"/>
+<O>
+<![CDATA[TCH掉话率]]></O>
+</Parameter>
+<Parameter>
+<Attributes name="value" isAutoInc="false"/>
+<O>
+<![CDATA[]]></O>
+</Parameter>
+</Parameters>
+<TargetFrame>
+<![CDATA[_blank]]></TargetFrame>
+<Features width="500" height="270"/>
+<realateName realateValue="Float8"/>
+</JavaScript>
+</JavaScript>
+</NameJavaScript>
+</NameJavaScriptGroup>
+<CellGUIAttr/>
+<CellPageAttr/>
+<Expand/>
+</C>
+<C c="8" r="0" s="2">
+<O>
+<![CDATA[TCH拥塞率(含切换)]]></O>
+<NameJavaScriptGroup>
+<NameJavaScript name="图表超链-联动悬浮元素1">
+<JavaScript class="com.fr.web.ChartHyperRelateFloatLink">
+<JavaScript class="com.fr.web.ChartHyperRelateFloatLink">
+<Parameters>
+<Parameter>
+<Attributes name="value" isAutoInc="false"/>
+<O>
+<![CDATA[]]></O>
+</Parameter>
+<Parameter>
+<Attributes name="name" isAutoInc="false"/>
+<O>
+<![CDATA[TCH拥塞率]]></O>
+</Parameter>
+</Parameters>
+<TargetFrame>
+<![CDATA[_blank]]></TargetFrame>
+<Features width="500" height="270"/>
+<realateName realateValue="Float8"/>
+</JavaScript>
+</JavaScript>
+</NameJavaScript>
+</NameJavaScriptGroup>
+<CellGUIAttr/>
+<CellPageAttr/>
+<Expand/>
+</C>
+<C c="0" r="1">
+<O t="DSColumn">
+<Attributes dsName="ds1" columnName="小区名"/>
+<Complex/>
+<RG class="com.fr.report.cellElement.core.FunctionGrouper">
+<Attr divideMode="2"/>
+</RG>
+<Parameters/>
+</O>
+<CellGUIAttr adjustmode="2"/>
+<CellPageAttr/>
+<HighlightList>
+<Highlight class="com.fr.report.highlight.DefaultHighlight">
+<Name>
+<![CDATA[条件属性1]]></Name>
+<Condition class="com.fr.data.condition.FormulaCondition">
+<Formula>
+<![CDATA[row()%2!=0]]></Formula>
+</Condition>
+<HighlightAction class="com.fr.report.highlight.BackgroundHighlightAction">
+<Scope val="1"/>
+<Background name="ColorBackground" color="-6697729"/>
+</HighlightAction>
+</Highlight>
+</HighlightList>
+<Expand dir="0"/>
+</C>
+<C c="1" r="1">
+<O t="DSColumn">
+<Attributes dsName="ds1" columnName="小区LAC"/>
+<Complex/>
+<RG class="com.fr.report.cellElement.core.FunctionGrouper"/>
+<Parameters/>
+</O>
+<CellGUIAttr/>
+<CellPageAttr/>
+<Expand dir="0"/>
+</C>
+<C c="2" r="1">
+<O t="DSColumn">
+<Attributes dsName="ds1" columnName="小区CI"/>
+<Complex/>
+<RG class="com.fr.report.cellElement.core.FunctionGrouper"/>
+<Parameters/>
+</O>
+<CellGUIAttr/>
+<CellPageAttr/>
+<Expand dir="0"/>
+</C>
+<C c="3" r="1">
+<O t="DSColumn">
+<Attributes dsName="ds1" columnName="无线利用率"/>
+<Complex/>
+<RG class="com.fr.report.cellElement.core.FunctionGrouper"/>
+<Parameters/>
+</O>
+<CellGUIAttr/>
+<CellPageAttr/>
+<Expand dir="0"/>
+</C>
+<C c="4" r="1">
+<O t="DSColumn">
+<Attributes dsName="ds1" columnName="总话务量"/>
+<Complex/>
+<RG class="com.fr.report.cellElement.core.FunctionGrouper"/>
+<Parameters/>
+</O>
+<CellGUIAttr/>
+<CellPageAttr/>
+<Expand dir="0"/>
+</C>
+<C c="5" r="1">
+<O t="DSColumn">
+<Attributes dsName="ds1" columnName="切换成功率"/>
+<Complex/>
+<RG class="com.fr.report.cellElement.core.FunctionGrouper"/>
+<Parameters/>
+</O>
+<CellGUIAttr/>
+<CellPageAttr/>
+<Expand dir="0"/>
+</C>
+<C c="6" r="1">
+<O t="DSColumn">
+<Attributes dsName="ds1" columnName="每线话务量"/>
+<Complex/>
+<RG class="com.fr.report.cellElement.core.FunctionGrouper"/>
+<Parameters/>
+</O>
+<CellGUIAttr/>
+<CellPageAttr/>
+<Expand dir="0"/>
+</C>
+<C c="7" r="1">
+<O t="DSColumn">
+<Attributes dsName="ds1" columnName="TCH掉话率"/>
+<Complex/>
+<RG class="com.fr.report.cellElement.core.FunctionGrouper"/>
+<Parameters/>
+</O>
+<CellGUIAttr/>
+<CellPageAttr/>
+<Expand dir="0"/>
+</C>
+<C c="8" r="1">
+<O t="DSColumn">
+<Attributes dsName="ds1" columnName="TCH拥塞率(含切换)"/>
+<Complex/>
+<RG class="com.fr.report.cellElement.core.FunctionGrouper"/>
+<Parameters/>
+</O>
+<CellGUIAttr/>
+<CellPageAttr/>
+<Expand dir="0"/>
+</C>
+</CellElementList>
+<ReportAttrSet>
+<ReportSettings headerHeight="0" footerHeight="0">
+<PaperSetting/>
+</ReportSettings>
+</ReportAttrSet>
+</Report>
+<ReportParameterAttr>
+<Attributes showWindow="true" delayPlaying="false" windowPosition="1" align="0"/>
+<PWTitle>
+<![CDATA[参数]]></PWTitle>
+<ParameterUI class="com.fr.report.parameter.FormParameterUI">
+<DesignAttr width="800" height="65"/>
+<Layout class="com.fr.form.ui.container.WAbsoluteLayout">
+<WidgetName name="para"/>
+<WidgetAttr/>
+<Widget class="com.fr.form.ui.container.WAbsoluteLayout$BoundsWidget">
+<InnerWidget class="com.fr.form.ui.Label">
+<WidgetName name="Labeltime"/>
+<WidgetAttr/>
+<LabelAttr textalign="0" autoline="true"/>
+<FRFont name="宋体" style="0" size="72"/>
+<widgetValue>
+<O>
+<![CDATA[时间：]]></O>
+</widgetValue>
+</InnerWidget>
+<BoundsAttr x="50" y="25" width="49" height="21"/>
+</Widget>
+<Widget class="com.fr.form.ui.container.WAbsoluteLayout$BoundsWidget">
+<InnerWidget class="com.fr.report.web.ui.impl.form.FormSubmitButton">
+<WidgetName name="Search"/>
+<WidgetAttr/>
+<Text>
+<![CDATA[查询]]></Text>
+<Hotkeys>
+<![CDATA[enter]]></Hotkeys>
+</InnerWidget>
+<BoundsAttr x="317" y="25" width="80" height="21"/>
+</Widget>
+<Widget class="com.fr.form.ui.container.WAbsoluteLayout$BoundsWidget">
+<InnerWidget class="com.fr.form.ui.DateEditor">
+<WidgetName name="time"/>
+<WidgetAttr/>
+<DateAttr format="yyyy-MM-dd HH:mm:ss"/>
+<widgetValue>
+<O t="Date">
+<![CDATA[1353686400000]]></O>
+</widgetValue>
+</InnerWidget>
+<BoundsAttr x="99" y="25" width="167" height="21"/>
+</Widget>
+<LCAttr vgap="0" hgap="0"/>
+</Layout>
+</ParameterUI>
+<Background name="ColorBackground"/>
+</ReportParameterAttr>
+<StyleList>
+<Style imageLayout="1">
+<FRFont name="SimSun" style="0" size="72"/>
+<Background name="NullBackground"/>
+<Border/>
+</Style>
+<Style style_name="Head"/>
+<Style horizontal_alignment="0" imageLayout="1">
+<FRFont name="SimSun" style="0" size="72" foreground="-16776961" underline="1"/>
+<Background name="ImageBackground" specifiedImageWidth="-1.0" specifiedImageHeight="-1.0" layout="2">
+<IM>
+<![CDATA[lO<9(kN.ld@UNU%p%320@UNU)#I6cXfRW$ncQ/@&<0O5<@n=S@[oX!K%L!+t*8LGkV28*<fV
+1DR2+&2#M*'iG9!?fn`jEHhj.>Qf/%>^"4u8^;2W-f-"/[-Ps"#=CT4LGm?)6rkX]Ap9;)cg,
+:Xp=M>^R`IX>57);OBFYLBS"_e1Gss7S9)tL+\09b!LY7c2&TIA?%9m4n<NhHK^]A5-XNuS&?
+,PUblK>Iu.A7%J~
+]]></IM>
+</Background>
+<Border>
+<Top style="1" color="-6697729"/>
+<Bottom style="1" color="-6697729"/>
+<Left style="1" color="-6697729"/>
+<Right style="1" color="-6697729"/>
+</Border>
+</Style>
+</StyleList>
+</WorkBook>

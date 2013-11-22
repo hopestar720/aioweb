@@ -14,16 +14,16 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import com.xhsoft.framework.security.model.GrantedResource;
 import com.xhsoft.framework.security.model.SimpleGrantedResource;
 import com.xhsoft.framework.uam.entity.Group;
-import com.xhsoft.framework.uam.entity.Resource;
+import com.xhsoft.framework.uam.entity.Res;
 import com.xhsoft.framework.uam.entity.Role;
 import com.xhsoft.framework.uam.entity.User;
-import com.xhsoft.framework.uam.service.RoleService;
-import com.xhsoft.framework.uam.service.UserService;
+import com.xhsoft.framework.uam.service.IRoleService;
+import com.xhsoft.framework.uam.service.IUserService;
 
 public class UserDetailsServiceImpl implements UserDetailsService {
 	
-	private UserService userService;
-	private RoleService roleService;
+	private IUserService userService;
+	private IRoleService roleService;
 
 	@Override
 	public UserDetails loadUserByUsername(String username)
@@ -31,40 +31,41 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 		List<User> users = this.getUserService().findUserByName(username);
 		
 		if(users == null|| users.isEmpty()){
-			throw new UsernameNotFoundException("ÓÃ»§²»´æÔÚ");
+			throw new UsernameNotFoundException("ç”¨æˆ·/å¯†ç é”™è¯¯,è¯·é‡æ–°è¾“å…¥!");
 		}
 		
 		User user = users.get(0);
 		return init(user);
 	}
 	
+	/** åˆå§‹åŒ– */
 	private User init(User user){
 		List<Group> groups = user.getGroups();
 		if(groups == null || groups.isEmpty()){
-			throw new UsernameNotFoundException("ÓÃ»§Î´·ÖÅä×é");
+			throw new UsernameNotFoundException("å°šæœªåˆ†é…æƒé™ç»„!");
 		}
 		
-		// ·Ö×éÈ¨ÏŞ¼¯ºÏ
+		// åˆ†ç»„æƒé™é›†åˆ
 		Set<Role> roles = new HashSet<Role>();
 		for (Group group : groups) {
 			roles.addAll(group.getRoles());
 		}
 		
-		// ½ÇÉ«È¨ÏŞ¼¯ºÏ
+		// è§’è‰²æƒé™é›†åˆ
 		Collection<GrantedAuthority> gaRoles = new HashSet<GrantedAuthority>();
 		Collection<GrantedResource> gaResources = new HashSet<GrantedResource>();
 		
 		for (Role role : roles) {
 			gaRoles.add(new SimpleGrantedAuthority(role.getName()));
-			role = this.getRoleService().findById(role);
+			role = this.getRoleService().findByPrimaryKey(role.getSid());
 			if (role.getResources() != null && !role.getResources().isEmpty())
-				for (Resource resource : role.getResources()) { // È¡³ö½ÇÉ«ËùÓµÓĞµÄ×ÊÔ´
+				for (Res resource : role.getResources()) {// å–å‡ºè§’è‰²æ‰€æ‹¥æœ‰çš„èµ„æº
 					gaResources.add(new SimpleGrantedResource(resource.getUri()));
 				}
 		}
 
 		if (gaRoles == null || gaRoles.isEmpty())
-			throw new UsernameNotFoundException("È¨ÏŞ²»×ã!");
+			throw new UsernameNotFoundException("æƒé™ä¸è¶³!");
 
 		user.setAuthorities(gaRoles);
 		user.setResources(gaResources);
@@ -72,19 +73,19 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 		return user;
 	}
 
-	public UserService getUserService() {
+	public IUserService getUserService() {
 		return userService;
 	}
 
-	public void setUserService(UserService userService) {
+	public void setUserService(IUserService userService) {
 		this.userService = userService;
 	}
 
-	public RoleService getRoleService() {
+	public IRoleService getRoleService() {
 		return roleService;
 	}
 
-	public void setRoleService(RoleService roleService) {
+	public void setRoleService(IRoleService roleService) {
 		this.roleService = roleService;
 	}
 

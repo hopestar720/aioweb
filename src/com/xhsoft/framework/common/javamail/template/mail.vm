@@ -1,0 +1,16 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<title>邮件测试</title>
+</head>
+<body>
+<h3>Hello : ${contact.strName}, This is a test mail !</h3>
+<div>
+    Your email : <a href="mailto:${contact.strEmail}">${contact.strEmail}</a>.<br/>
+    Here is MyPhoto:<br/>
+    =================================<br>
+    <img src='cid:myphoto'/></br>
+    =================================
+</div>
+</body>
+</html>

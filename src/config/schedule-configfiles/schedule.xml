@@ -27,16 +27,19 @@
 		<property name="targetMethod">
 			<value>sayHello</value>
 		</property>
+		
+		<property name="arguments">  
+	    	<list>
+	    	    <value>lenovo</value>
+	        </list>
+        </property>
 	</bean>
 	
 	<!-- 定义触发时间 -->
 	<!-- 注：Quartz 1.x以前要用org.springframework.scheduling.quartz.CronTriggerFactoryBean -->
 	<bean id="sayHelloMethodtrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
 		<property name="jobDetail">
-		    <list>
-		        <ref bean="sayHelloJob" />
-				<ref bean="sayHelloMethodTask" />
-		    </list>
+			<ref bean="sayHelloMethodTask" />
 		</property>
 		<!-- cron表达式 -->
 		<property name="cronExpression">
