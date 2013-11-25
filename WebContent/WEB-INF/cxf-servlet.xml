@@ -28,11 +28,12 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
 	<import resource="classpath:META-INF/cxf/cxf.xml" />
 	<import resource="classpath:META-INF/cxf/cxf-servlet.xml" />
 
-	<!-- 
+	
+	<bean id="helloWorldImpl" class="com.xhsoft.framework.webservice.impl.HelloWorldImpl"/>
 	<jaxws:endpoint 
 	  id="helloWorld" 
-	  implementor="demo.spring.service.HelloWorldImpl" 
+	  implementor="#helloWorldImpl" 
 	  address="/HelloWorld" />
-	   -->
+	   
 </beans>
 <!-- END SNIPPET: beans -->
