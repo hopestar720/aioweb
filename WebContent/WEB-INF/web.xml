@@ -61,7 +61,7 @@
 	<!-- Spring配置 end -->
 	
 	<!-- SpringSecurity配置 start -->
-    <filter>
+    <!-- <filter>
         <filter-name>springSecurityFilterChain</filter-name>
         <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
     </filter>
@@ -73,7 +73,7 @@
     
     <listener>
       <listener-class>org.springframework.security.web.session.HttpSessionEventPublisher</listener-class>
-    </listener>
+    </listener> -->
     <!-- SpringSecurity配置 end -->
     
     <!-- struts2配置 start -->
@@ -91,7 +91,7 @@
     <!-- jcaptcha验证码配置 start -->
 	<servlet>
 		<servlet-name>jcaptcha</servlet-name>
-		<servlet-class>com.shadow.extras.jcaptcha.ImageCaptchaServlet</servlet-class>
+		<servlet-class>com.xhsoft.framework.common.jcaptcha.ImageCaptchaServlet</servlet-class>
 		<load-on-startup>0</load-on-startup>
 	</servlet>
 	<servlet-mapping>
@@ -183,7 +183,7 @@
 	<!-- 缓存、gzip压缩核心过滤器 -->
 	<filter>
 	    <filter-name>PageEhCacheFilter</filter-name>
-	    <filter-class>com.hoo.ehcache.filter.PageEhCacheFilter</filter-class>
+	    <filter-class>com.xhsoft.framework.common.ehcache.EhcachePageFilter</filter-class>
 	    <init-param>
 	        <param-name>patterns</param-name>
 	        <!-- 配置你需要缓存的url -->

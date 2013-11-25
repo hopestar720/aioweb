@@ -42,7 +42,7 @@
 	<!-- Hibernate Configuration -->
 	<bean id="mySessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
 		<property name="dataSource">
-			<ref bean="dataSource"/>
+			<ref bean="dynamicDataSource"/>
 		</property>
 		
 		<property name="mappingDirectoryLocations">

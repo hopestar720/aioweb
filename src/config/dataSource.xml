@@ -9,9 +9,26 @@
 		<property name="location" value="classpath:jdbc.properties" />
 		<property name="ignoreUnresolvablePlaceholders" value="true" />
 	</bean>
+	
+	<!-- 配置动态数据源 -->
+	<bean id="dynamicDataSource" class="com.xhsoft.framework.common.db.dynamic.DynamicDataSource">
+		<!-- 通过key-value的形式来关联数据源 -->
+		<property name="targetDataSources">
+			<map key-type="java.lang.String">
+				<entry value-ref="dbcpDs" key="DBCP_DS"></entry>
+				<entry value-ref="c3p0Ds" key="C3P0_DS"></entry>
+				<entry value-ref="proxoolDs" key="PROXOOL_DS"></entry>
+				<entry value-ref="jdbcDs" key="JDBC_DS"></entry>
+			</map>
+		</property>
+		<property name="defaultTargetDataSource" ref="c3p0Ds" />
+	</bean>
+	
+	<!-- 配置数据源切换实现类 -->
+	<bean id="dataSourceEntry" class="com.xhsoft.framework.common.db.dynamic.DataSourceEntryImpl" />
 
 	<!-- DBCP Datasource -->
-	<bean id="dbcpDs" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+	<bean id="dbcpDs" class="org.apache.commons.dbcp.BasicDataSource">
 		<property name="driverClassName" value="${jdbc.db1.driverClassName}" />
 		<property name="url" value="${jdbc.db1.url}" />
 		<property name="username" value="${jdbc.db1.username}" />
@@ -20,7 +37,7 @@
 	</bean>
 
 	<!-- C3P0 Datasource -->
-	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+	<bean id="c3p0Ds" class="com.mchange.v2.c3p0.ComboPooledDataSource" lazy-init="true">
 		<property name="driverClass" value="${jdbc.db1.driverClassName}"/>
 		<property name="jdbcUrl" value="${jdbc.db1.url}"/>
 		<property name="user" value="${jdbc.db1.username}"/>

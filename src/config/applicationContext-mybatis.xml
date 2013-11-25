@@ -12,23 +12,20 @@
 
 	<!-- define the SqlSessionFactory -->
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-		<property name="dataSource" ref="dataSource" />
-		<!-- Mybatis自身的配置文件，一般用来声明别名 -->
+		<property name="dataSource" ref="dynamicDataSource" />
 		<property name="configLocation" value="classpath:mybatis-config.xml" />
-		<!-- mybatis的映射文件 -->
+		<property name="typeAliasesPackage" value="com.xhsoft.framework.uam.entity" />
 		<property name="mapperLocations" value="classpath:mybatis-configfiles/*.xml" />
-		<!-- 要映射类的包路径，如果使用了这种方式，则configLocation中不必再进行声明 -->
-		<!-- <property name="typeAliasesPackage " value=""/> -->
 	</bean>
 
 	<!-- use the sqlSessionTemplate -->
 	<bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
 		<constructor-arg index="0" ref="sqlSessionFactory" />
-		<constructor-arg index="1" value="BATCH" /><!--- 如果想要进行批量操作可加入这个属性 ->
 	</bean>
 
 	<!-- scan for mappers and let them be autowired -->
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.xhsoft.framework.uam.dao" />
 		<property name="sqlSessionTemplateBeanName" value="sqlSessionTemplate" />
 	</bean>
 
