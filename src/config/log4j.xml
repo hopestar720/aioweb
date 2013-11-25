@@ -21,13 +21,91 @@
 	<!-- org.apache.log4j.WriterAppender(将日志信息以流格式发送到任意指定的地方)   -->
 	<!-- ========================================================================== -->
 	
-	<!-- 输出到控制台中 -->
-	<appender name="CONSOLE" class="org.apache.log4j.ConsoleAppender">
-		<layout class="org.apache.log4j.PatternLayout">
-			<param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss} %-5p: %m%n" />
-			<!-- "%-5p: [%t] [%c{3}.%M(%L)] | %m%n" -->
-		</layout>
+	<!-- 按输出终端分类：控制台、文件、数据库、邮件和输出流等 -->
+	<!-- 控制台日志 -->
+	<appender name="STDOUT" class="org.apache.log4j.ConsoleAppender">
+	    <layout class="org.apache.log4j.PatternLayout">
+	        <param name="ConversionPattern" value="%d{yyy-MM-dd HH:mm:ss} - %m%n"/>
+	    </layout>
 	</appender>
+	
+	<!-- 按级别分类：DEBUG、INFO、WARN和ERROR -->
+	<!-- DEBUG -->
+	<appender name="DEBUG" class="org.apache.log4j.DailyRollingFileAppender">
+	    <!-- 指定输出文件的位置 -->
+	    <param name="File" value="${catalina.base}/aio_logs/debug/debug"/>
+	    <!-- 设置是否在重新启动服务时，在原有日志的基础添加新日志 -->
+	    <param name="Append" value="true"/>
+	    <param name="DatePattern" value="'.'yyyy-MM-dd'.log'"/>
+	    
+	    <layout class="org.apache.log4j.PatternLayout">
+	        <param name="ConversionPattern" value="%d{yyy-MM-dd HH:mm:ss} - %m%n"/>
+	    </layout>
+	    
+	    <!-- 设置输出的级别 -->
+		<filter class="org.apache.log4j.varia.LevelRangeFilter">
+			<param name="LevelMin" value="DEBUG" />
+			<param name="LevelMax" value="DEBUG" />
+		</filter>
+	</appender>
+	
+	<!-- INFO -->
+	<appender name="INFO" class="org.apache.log4j.DailyRollingFileAppender">
+	    <!-- 指定输出文件的位置 -->
+	    <param name="File" value="${catalina.base}/aio_logs/info/info"/>
+	    <!-- 设置是否在重新启动服务时，在原有日志的基础添加新日志 -->
+	    <param name="Append" value="true"/>
+	    <param name="DatePattern" value="'.'yyyy-MM-dd'.log'"/>
+	    
+	    <layout class="org.apache.log4j.PatternLayout">
+	        <param name="ConversionPattern" value="%d{yyy-MM-dd HH:mm:ss} - %m%n"/>
+	    </layout>
+	    
+	    <!-- 设置输出的级别 -->
+		<filter class="org.apache.log4j.varia.LevelRangeFilter">
+			<param name="LevelMin" value="INFO" />
+			<param name="LevelMax" value="INFO" />
+		</filter>
+	</appender>
+	
+	<!-- WARN -->
+	<appender name="WARN" class="org.apache.log4j.DailyRollingFileAppender">
+	    <!-- 指定输出文件的位置 -->
+	    <param name="File" value="${catalina.base}/aio_logs/warn/warn"/>
+	    <!-- 设置是否在重新启动服务时，在原有日志的基础添加新日志 -->
+	    <param name="Append" value="true"/>
+	    <param name="DatePattern" value="'.'yyyy-MM-dd'.log'"/>
+	    
+	    <layout class="org.apache.log4j.PatternLayout">
+	        <param name="ConversionPattern" value="%d{yyy-MM-dd HH:mm:ss} - %m%n"/>
+	    </layout>
+	    
+	    <!-- 设置输出的级别 -->
+		<filter class="org.apache.log4j.varia.LevelRangeFilter">
+			<param name="LevelMin" value="WARN" />
+			<param name="LevelMax" value="WARN" />
+		</filter>
+	</appender>
+	
+	<!-- ERROR -->
+	<appender name="ERROR" class="org.apache.log4j.DailyRollingFileAppender">
+	    <!-- 指定输出文件的位置 -->
+	    <param name="File" value="${catalina.base}/aio_logs/error/error"/>
+	    <!-- 设置是否在重新启动服务时，在原有日志的基础添加新日志 -->
+	    <param name="Append" value="true"/>
+	    <param name="DatePattern" value="'.'yyyy-MM-dd'.log'"/>
+	    
+	    <layout class="org.apache.log4j.PatternLayout">
+	        <param name="ConversionPattern" value="%d{yyy-MM-dd HH:mm:ss} - %m%n"/>
+	    </layout>
+	    
+	    <!-- 设置输出的级别 -->
+		<filter class="org.apache.log4j.varia.LevelRangeFilter">
+			<param name="LevelMin" value="ERROR" />
+			<param name="LevelMax" value="ERROR" />
+		</filter>
+	</appender>
+	
 	
 	<!-- 输出到日志文件  -->
 	<appender name="FILE" class="org.apache.log4j.RollingFileAppender">
@@ -47,8 +125,8 @@
 
 	<!-- 输出到日志文件 每天一个日志  -->
 	<appender name="DAILY" class="org.apache.log4j.DailyRollingFileAppender">   
-	    <param name="File" value="log/daily.log" />   
-        <param name="DatePattern" value="'daily.'yyyy-MM-dd'.log'" />   
+	    <param name="File" value="log/daily" />   
+        <param name="DatePattern" value="'.'yyyy-MM-dd'.log'" />   
         <layout class="org.apache.log4j.PatternLayout">   
         	<param name="ConversionPattern" value="[%d{yyyy-MM-dd HH:mm:ss\} %-5p] [%t] (%c:%L) - %m%n" />   
         </layout>   
@@ -56,12 +134,12 @@
   	
   	<!-- 输出到数据库中 -->
 	<appender name="DATABASE" class="org.apache.log4j.jdbc.JDBCAppender">
-		<param name="URL" value="jdbc:oracle:thin:@192.168.0.59:1521:oanet" />
-		<param name="driver" value="oracle.jdbc.driver.OracleDriver" />
-		<param name="user" value="hdczoa" />
-		<param name="password" value="system" />
+		<param name="URL" value="jdbc:mysql://localhost:3306/db_aio_web" />
+		<param name="driver" value="com.mysql.jdbc.Driver" />
+		<param name="user" value="root" />
+		<param name="password" value="123456" />
 		<layout class="org.apache.log4j.PatternLayout">
-			<param name="ConversionPattern" value="INSERT INTO hdczoa.LOG4J(stamp,thread, info_level,class,message) VALUES ('%d', '%t', '%p', '%c', %m)" />
+			<param name="ConversionPattern" value="INSERT INTO db_aio_web.LOG4J(stamp,thread, info_level,class,message) VALUES ('%d', '%t', '%p', '%c', %m)" />
 		</layout>
 	</appender> 
 	
@@ -69,33 +147,43 @@
 	<appender name="EMAIL" class="org.apache.log4j.net.SMTPAppender">
 		<param name="Threshold" value="INFO"/>
 		<param name="BufferSize" value="128" />
-		<param name="SMTPHost" value="smtp.qq.com" />
-		<param name="SMTPUsername" value="cjjvictory" />
-		<param name="SMTPPassword" value="***" />
-		<param name="From" value="cjjvictory@qq.com" />
-		<param name="To" value="cjjvictory@gmail.com" />
-		<param name="Subject" value="测试邮件发送" />
+		<param name="SMTPHost" value="smtp.126.com" />
+		<param name="SMTPUsername" value="hopestar720@126.com" />
+		<param name="SMTPPassword" value="netease720." />
+		<param name="From" value="hopestar720@126.com" />
+		<param name="To" value="lijiangwei@tuoming.com" />
+		<param name="Subject" value="项目日志" />
 		<param name="LocationInfo" value="true" />
 		<param name="SMTPDebug" value="true" />
-		<layout class="org.cjj.log4j.extend.PatternLayout_zh">
-			<param name="ConversionPattern" value="[%d{ISO8601}] %-5p %c %m%n"/>
-		</layout>
 	</appender>
 
 	<!--- 异步测试，当日志达到缓存区大小时候执行所包的appender -->
-	<appender name="ASYNC_test" class="org.apache.log4j.AsyncAppender">   
+	<appender name="ASYNC" class="org.apache.log4j.AsyncAppender">   
 	     <param name="BufferSize" value="10"/>   
-	     <appender-ref ref="EMAIL_QQ"/>
+	     <appender-ref ref="EMAIL"/>
    	</appender>
-
- 	<!-- 设置包限制输出的通道 -->
-	<category name="org.cjj" additivity="false">
-	<!-- 日志输出级别，起码可以有5个级别，可以扩展自己的级别，邮件发送必须是ERROR级别不好用，所以最后自己扩展一个邮件发送级别 -->
-		<level value="ERROR" />
-		<appender-ref ref="filelog_daily" />
-		<appender-ref ref="daily_appender" />
-		<appender-ref ref="console" />
-		<appender-ref ref="ASYNC_test" />
- 	</category>
+   	
+	<!-- category 部分定义了特定包或者类的输出级别和日志具体输出哪个包的信息，以及输出位置，可以有多个 -->
+	<!-- 这个配置的目的：只输出org.apache包下的调试信息 
+	<category name="org.apache">
+		<priority value="WARN" />
+		<appender-ref ref="WARN" />
+	</category>
+ 	-->
+ 	
+ 	<category name="com.xhsoft.framework">
+		<priority value="ERROR" />
+		<appender-ref ref="ERROR" />
+	</category>
+	
+ 	<root>
+ 	    <appender-ref ref="DEBUG"/>
+ 	    <appender-ref ref="INFO"/>
+ 	    <appender-ref ref="WARN"/>
+ 	    <appender-ref ref="ERROR"/>
+ 	    <appender-ref ref="EMAIL"/>
+ 	    <appender-ref ref="DATABASE"/>
+ 	    <appender-ref ref="DAILY"/>
+ 	</root>
 
 </log4j:configuration>
