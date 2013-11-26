@@ -19,12 +19,23 @@
 		<listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>
 	</listener>
 	log4j日至配置 end -->
+
+	<!-- logback spring 配置 begin -->
+	<context-param>
+	    <param-name>logbackConfigLocation</param-name>
+	    <param-value>classpath:logback.xml</param-value>
+	</context-param>
+	<listener>
+    	<listener-class>ch.qos.logback.ext.spring.web.LogbackConfigListener</listener-class>
+	</listener>
+	<!-- logback spring 配置 end -->
 	
 	<!-- Spring配置 start -->
 	<context-param>
         <param-name>contextConfigLocation</param-name>
         <param-value>
             classpath:applicationContext.xml,
+            classpath:applicationContext-security.xml,
             classpath:spring-configfiles/*.xml
         </param-value>
     </context-param>
@@ -59,7 +70,7 @@
 	<!-- Spring配置 end -->
 	
 	<!-- SpringSecurity配置 start -->
-    <!-- <filter>
+    <filter>
         <filter-name>springSecurityFilterChain</filter-name>
         <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
     </filter>
@@ -71,7 +82,7 @@
     
     <listener>
       <listener-class>org.springframework.security.web.session.HttpSessionEventPublisher</listener-class>
-    </listener> -->
+    </listener>
     <!-- SpringSecurity配置 end -->
     
     <!-- struts2配置 start -->
