@@ -6,12 +6,16 @@
      http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
      http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 
-
+	<import resource="schedule-configfiles/*.xml"/>
+	
     <bean id="schedulerFactory" lazy-init="false" autowire="no" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
 		<property name="triggers">
 			<list>
-				<ref bean="sayHelloMethodtrigger"/>
+				<ref bean="sayHelloTrigger"/>
 			</list>
 		</property>
+		
+		<property name="configLocation" value="classpath:quartz.properties" />
+		<property name="autoStartup" value="true"/>
 	</bean>	
 </beans>

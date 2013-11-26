@@ -13,6 +13,8 @@
 				<entry key="user" value="admin" />
 			</map>
 		</property>
+		
+		<property name="durability" value="true" />
 	</bean>
 
 	<!-- 要调用的工作类 -->
@@ -44,6 +46,16 @@
 		<!-- cron表达式 -->
 		<property name="cronExpression">
 			<value>0/30 * * * * ?</value>
+		</property>
+	</bean>
+	
+	<bean id="sayHelloTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail">
+			<ref bean="sayHelloJob" />
+		</property>
+		<!-- cron表达式 -->
+		<property name="cronExpression">
+			<value>0/10 * * * * ?</value>
 		</property>
 	</bean>
 	

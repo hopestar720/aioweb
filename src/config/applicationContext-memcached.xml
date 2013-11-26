@@ -71,7 +71,7 @@
 			<list>
 				<value>
 					<!-- com.shadow.mvc.service\..Service.*\.find.*   -->
-					com.shadow.mvc.main.service.impl.BrandService.*\.find.*
+					com.xhsoft.framework.base.service.impl.*\.get.*
 				</value>
 			</list>
 		</property>
@@ -86,11 +86,11 @@
 	<aop:config>
 		<aop:aspect id="methodCachePointCutAdviceAspect" ref="cacheMethodAfterAdvice">
 			<aop:after method="afterReturning"
-				pointcut="execution(* com.shadow.mvc.main.service.*Service.modify*(..))" />
+				pointcut="execution(* com.xhsoft.framework.base.service.impl.*.modify*(..))" />
 			<aop:after method="afterReturning"
-				pointcut="execution(* com.shadow.mvc.main.service.*Service.save*(..))" />
+				pointcut="execution(* com.xhsoft.framework.base.service.impl.*.save*(..))" />
 			<aop:after method="afterReturning"
-				pointcut="execution(* com.shadow.mvc.main.service.*Service.remove*(..))" />
+				pointcut="execution(* com.xhsoft.framework.base.service.impl.*.remove*(..))" />
 		</aop:aspect>
 	</aop:config>
 

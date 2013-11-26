@@ -5,11 +5,6 @@
 	
 	<description>datasource</description>
 	
-	<bean id="dbProperties" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-		<property name="location" value="classpath:jdbc.properties" />
-		<property name="ignoreUnresolvablePlaceholders" value="true" />
-	</bean>
-	
 	<!-- 配置动态数据源 -->
 	<bean id="dynamicDataSource" class="com.xhsoft.framework.common.db.dynamic.DynamicDataSource">
 		<!-- 通过key-value的形式来关联数据源 -->
@@ -22,6 +17,7 @@
 			</map>
 		</property>
 		<property name="defaultTargetDataSource" ref="c3p0Ds" />
+		<property name="dataSourceEntry" ref="dataSourceEntry"/>
 	</bean>
 	
 	<!-- 配置数据源切换实现类 -->

@@ -25,8 +25,13 @@
 	<!-- 控制台日志 -->
 	<appender name="STDOUT" class="org.apache.log4j.ConsoleAppender">
 	    <layout class="org.apache.log4j.PatternLayout">
-	        <param name="ConversionPattern" value="%d{yyy-MM-dd HH:mm:ss} - %m%n"/>
+	        <param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss,SSS} %20c- %m%n"/>
 	    </layout>
+	    
+	    <!-- 设置输出的级别 -->
+		<filter class="org.apache.log4j.varia.LevelRangeFilter">
+			<param name="LevelMin" value="INFO" />
+		</filter>
 	</appender>
 	
 	<!-- 按级别分类：DEBUG、INFO、WARN和ERROR -->
@@ -133,19 +138,23 @@
   	</appender> 
   	
   	<!-- 输出到数据库中 -->
-	<appender name="DATABASE" class="org.apache.log4j.jdbc.JDBCAppender">
+	<appender name="JDBC" class="org.apache.log4j.jdbc.JDBCAppender">
 		<param name="URL" value="jdbc:mysql://localhost:3306/db_aio_web" />
 		<param name="driver" value="com.mysql.jdbc.Driver" />
 		<param name="user" value="root" />
 		<param name="password" value="123456" />
 		<layout class="org.apache.log4j.PatternLayout">
-			<param name="ConversionPattern" value="INSERT INTO db_aio_web.LOG4J(stamp,thread, info_level,class,message) VALUES ('%d', '%t', '%p', '%c', %m)" />
+			<param name="ConversionPattern" value="INSERT INTO LOG_LOG4J(stamp,thread,level,class,message) VALUES ('%d', '%t', '%p', '%c', '%m')" />
 		</layout>
+		
+		<!-- 设置输出的级别 -->
+		<filter class="org.apache.log4j.varia.LevelRangeFilter">
+			<param name="LevelMin" value="ERROR" />
+		</filter>
 	</appender> 
 	
 	<!-- 发送邮件 -->
-	<appender name="EMAIL" class="org.apache.log4j.net.SMTPAppender">
-		<param name="Threshold" value="INFO"/>
+	<appender name="STMP" class="org.apache.log4j.net.SMTPAppender">
 		<param name="BufferSize" value="128" />
 		<param name="SMTPHost" value="smtp.126.com" />
 		<param name="SMTPUsername" value="hopestar720@126.com" />
@@ -155,12 +164,21 @@
 		<param name="Subject" value="项目日志" />
 		<param name="LocationInfo" value="true" />
 		<param name="SMTPDebug" value="true" />
+		
+		<layout class="org.apache.log4j.PatternLayout">   
+        	<param name="ConversionPattern" value="[%d{yyyy-MM-dd HH:mm:ss\} %-5p] [%t] (%c:%L) - %m%n" />   
+        </layout> 
+        
+		<!-- 设置输出的级别 -->
+		<filter class="org.apache.log4j.varia.LevelRangeFilter">
+			<param name="LevelMin" value="ERROR" />
+		</filter>
 	</appender>
 
 	<!--- 异步测试，当日志达到缓存区大小时候执行所包的appender -->
 	<appender name="ASYNC" class="org.apache.log4j.AsyncAppender">   
 	     <param name="BufferSize" value="10"/>   
-	     <appender-ref ref="EMAIL"/>
+	     <appender-ref ref="STMP"/>
    	</appender>
    	
 	<!-- category 部分定义了特定包或者类的输出级别和日志具体输出哪个包的信息，以及输出位置，可以有多个 -->
@@ -177,12 +195,15 @@
 	</category>
 	
  	<root>
+ 	    <appender-ref ref="STDOUT"/>
+ 	    
  	    <appender-ref ref="DEBUG"/>
  	    <appender-ref ref="INFO"/>
  	    <appender-ref ref="WARN"/>
  	    <appender-ref ref="ERROR"/>
- 	    <appender-ref ref="EMAIL"/>
- 	    <appender-ref ref="DATABASE"/>
+ 	    
+ 	    <appender-ref ref="STMP"/>
+ 	    <appender-ref ref="JDBC"/>
  	    <appender-ref ref="DAILY"/>
  	</root>
 

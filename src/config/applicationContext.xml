@@ -25,19 +25,8 @@
 		</property>
 	</bean>
 	
-	<!-- i18n Resourcebundles -->
-	<bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
-		<property name="basenames">
-			<list>
-				<value>globalMessages_zh_CN</value>
-			</list>
-		</property>
-	</bean>
-	
 	<!-- 导入Datasource配置 -->
 	<import resource="dataSource.xml" />
-	
-	
 	
 	<!-- Hibernate Configuration -->
 	<bean id="mySessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
